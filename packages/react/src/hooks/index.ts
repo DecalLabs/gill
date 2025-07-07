@@ -6,3 +6,4 @@ export * from "./program-accounts";
 export * from "./signature-statuses";
 export * from "./token-account";
 export * from "./token-mint";
+export * from "./multiple-accounts";
