@@ -1,5 +1,28 @@
 # gill-react
 
+## 0.5.0
+
+### Minor Changes
+
+- [#173](https://github.com/DecalLabs/gill/pull/173)
+  [`230d982`](https://github.com/DecalLabs/gill/commit/230d982ae177c6912e46b46dabbcb7aae49addb1) Thanks
+  [@pratikbuilds](https://github.com/pratikbuilds)! - added `useRecentPrioritizationFees` hook
+
+### Patch Changes
+
+- [#179](https://github.com/DecalLabs/gill/pull/179)
+  [`b9e1027`](https://github.com/DecalLabs/gill/commit/b9e102793b30b0bf8a5c8e512ecc20f04a1e6ddc) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - update repo location
+
+- [#171](https://github.com/DecalLabs/gill/pull/171)
+  [`347ff26`](https://github.com/DecalLabs/gill/commit/347ff26b30b6fb8593a14ce996515440e3b0b295) Thanks
+  [@pratikbuilds](https://github.com/pratikbuilds)! - added `useSlot` hook
+
+- Updated dependencies [[`0473034`](https://github.com/DecalLabs/gill/commit/0473034aaac424195b120e939d6501bfd6a24a9d),
+  [`b9e1027`](https://github.com/DecalLabs/gill/commit/b9e102793b30b0bf8a5c8e512ecc20f04a1e6ddc),
+  [`e1c47e9`](https://github.com/DecalLabs/gill/commit/e1c47e9a84340bed35d5b33298c600a3b23628ff)]:
+  - gill@0.10.3
+
 ## 0.4.4
 
 ### Patch Changes
