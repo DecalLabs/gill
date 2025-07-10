@@ -60,6 +60,7 @@ Fetch data from the Solana blockchain with the gill hooks:
 - [`useBalance`](#get-account-balance-in-lamports) - get account balance (in lamports)
 - [`useLatestBlockhash`](#get-latest-blockhash) - get the latest blockhash
 - [`useSignatureStatuses`](#get-signature-statuses) - get signature statuses
+- [`useSignaturesForAddress`](#get-signatures-for-address) - get signatures for address
 - [`useProgramAccounts`](#get-program-accounts-gpa) - get program accounts (GPA)
 - [`useTokenMint`](#get-token-mint-account) - get a decoded token's Mint account
 - [`useTokenAccount`](#get-token-account) - get the token account for a given mint and owner (or ATA)
@@ -420,6 +421,34 @@ export function PageClient() {
   return (
     <div className="">
       <pre>account: {JSON.stringify(account, null, "\t")}</pre>
+    </div>
+  );
+}
+```
+
+### Get Signatures for address
+
+Get the signatures for confirmed transactions using the RPC method of [getSignaturesForAddress](https://solana.com/docs/rpc/http/getsignaturesforaddress)
+
+```tsx
+"use client";
+
+import { useSignaturesForAddress } from "gill-react";
+
+export function PageClient() {
+  const { signatures, isLoading, isError, error } = useSignaturesForAddress({
+    address: "nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c",
+    config : {
+      limit: 10
+    }
+  });
+
+  // if (isLoading) { return ... }
+  // if (isError) { return ... }
+
+  return (
+    <div className="">
+      <pre>signatures: {JSON.stringify(signatures, null, "\t")}</pre>
     </div>
   );
 }
