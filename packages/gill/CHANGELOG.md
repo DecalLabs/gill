@@ -1,5 +1,21 @@
 # gill
 
+## 0.10.3
+
+### Patch Changes
+
+- [#178](https://github.com/DecalLabs/gill/pull/178)
+  [`0473034`](https://github.com/DecalLabs/gill/commit/0473034aaac424195b120e939d6501bfd6a24a9d) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - add rust client support for the `createCodamaConfig` function
+
+- [#179](https://github.com/DecalLabs/gill/pull/179)
+  [`b9e1027`](https://github.com/DecalLabs/gill/commit/b9e102793b30b0bf8a5c8e512ecc20f04a1e6ddc) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - update repo location
+
+- [#164](https://github.com/DecalLabs/gill/pull/164)
+  [`e1c47e9`](https://github.com/DecalLabs/gill/commit/e1c47e9a84340bed35d5b33298c600a3b23628ff) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - added typedoc comment to createCodamaConfig
+
 ## 0.10.2
 
 ### Patch Changes
