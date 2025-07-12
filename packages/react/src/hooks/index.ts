@@ -6,5 +6,6 @@ export * from "./program-accounts";
 export * from "./signature-statuses";
 export * from "./slot";
 export * from "./token-account";
+export * from "./token-accounts-by-owner";
 export * from "./token-mint";
 export * from "./recent-prioritization-fees";
