@@ -59,6 +59,7 @@ Fetch data from the Solana blockchain with the gill hooks:
 - [`useAccount`](#get-account-info-and-data) - get the account info for an address
 - [`useBalance`](#get-account-balance-in-lamports) - get account balance (in lamports)
 - [`useLatestBlockhash`](#get-latest-blockhash) - get the latest blockhash
+- [`useSendTransaction`](#send-transaction) - send a fully signed transaction to the cluster
 - [`useSignatureStatuses`](#get-signature-statuses) - get signature statuses
 - [`useSignaturesForAddress`](#get-signatures-for-address) - get signatures for address
 - [`useProgramAccounts`](#get-program-accounts-gpa) - get program accounts (GPA)
@@ -449,6 +450,35 @@ export function PageClient() {
   return (
     <div className="">
       <pre>signatures: {JSON.stringify(signatures, null, "\t")}</pre>
+    </div>
+  );
+}
+```
+
+### Send Transaction
+
+Submit a fully signed transaction to the cluster using the Solana RPC method of [sendTransaction](https://solana.com/docs/rpc/http/sendtransaction)
+
+```tsx
+"use client";
+
+import { useSendTransaction } from "gill-react";
+
+export function PageClient() {
+  const { signature, isLoading, isError, error } = useSendTransaction({
+    transaction: "4hXTCkRzt9WyecNzV1XPgCDfGAZzQKNxLXgynz5QDuWWPSAZBZSHptvWRL3BjCvzUXRdKvHL2b7yGrRQcWyaqsaBCncVG7BFggS8w9snUts67BSh3EqKpXLUm5UMHfD7ZBe9GhARjbNQMLJ1QD3Spr6oMTBU6EhdB4RD8CP2xUxr2u3d6fos36PD98XS6oX8TQjLpsMwncs5DAMiD4nNnR8NBfyghGCWvCVifVwvA8B8TJxE1aiyiv2L429BCWfyzAme5sZW8rDb14NeCQHhZbtNqfXhcp2tAnaAT",
+    config : {
+      preflightCommitment: "finalized",
+      skipPreflight: false,
+    }
+  });
+
+  // if (isLoading) { return ... }
+  // if (isError) { return ... }
+
+  return (
+    <div className="">
+      <pre>signature: {JSON.stringify(signature, null, "\t")}</pre>
     </div>
   );
 }

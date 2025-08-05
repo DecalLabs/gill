@@ -4,6 +4,7 @@ export * from "./client";
 export * from "./latest-blockhash";
 export * from "./program-accounts";
 export * from "./recent-prioritization-fees";
+export * from "./send-transaction";
 export * from "./signature-statuses";
 export * from "./signatures-for-address";
 export * from "./slot";
