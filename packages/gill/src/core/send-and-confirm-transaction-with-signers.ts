@@ -10,22 +10,26 @@ import type {
   SendTransactionApi,
   Signature,
   SignatureNotificationsApi,
+  SimulateTransactionApi,
   SlotNotificationsApi,
   TransactionMessageWithFeePayer,
+  TransactionMessageWithSigners,
   TransactionWithBlockhashLifetime,
 } from "@solana/kit";
 import {
-  assertIsTransactionMessageWithBlockhashLifetime,
   Commitment,
   getBase64EncodedWireTransaction,
   getSignatureFromTransaction,
   sendAndConfirmTransactionFactory,
-  setTransactionMessageLifetimeUsingBlockhash,
   signTransactionMessageWithSigners,
 } from "@solana/kit";
 import { type waitForRecentTransactionConfirmation } from "@solana/transaction-confirmation";
 import { debug } from "./debug";
 import { getExplorerLink } from "./explorer";
+import { PrepareCompilableTransactionMessage, prepareTransaction } from "./prepare-transaction";
+import { hasSetComputeLimitInstruction } from "../programs/compute-budget/utils";
+
+type CompilableTransactionMessageWithSigners = CompilableTransactionMessage & TransactionMessageWithSigners;
 
 interface SendAndConfirmTransactionWithBlockhashLifetimeConfig extends SendTransactionConfigWithoutEncoding {
   confirmRecentTransaction: (
@@ -48,16 +52,45 @@ type SendableTransaction =
   | (FullySignedTransaction & TransactionWithBlockhashLifetime)
   | (BaseTransactionMessage & TransactionMessageWithFeePayer);
 
+/**
+ * Configuration for automatic transaction preparation
+ */
+export type SendAndConfirmTransactionPrepareConfig = {
+  /**
+   * Multiplier applied to the simulated compute unit value obtained from simulation
+   * @default 1.1
+   */
+  computeUnitLimitMultiplier?: number;
+  /**
+   * Whether to allow automatic compute unit limit estimation when missing
+   * @default true
+   */
+  allowComputeUnitLimitReset?: boolean;
+  /**
+   * Whether to force automatic blockhash fetching
+   * (this might be useful to get a fresher blockhash if you have to simulate to get CUs)
+   * @default false
+   */
+  forceBlockhashReset?: boolean;
+};
+
+export type SendAndConfirmTransactionConfig = Omit<
+  SendAndConfirmTransactionWithBlockhashLifetimeConfig,
+  "confirmRecentTransaction" | "rpc" | "transaction"
+> & {
+  /**
+   * Configuration for automatic transaction preparation
+   */
+  prepareTransactionConfig?: SendAndConfirmTransactionPrepareConfig;
+};
+
 export type SendAndConfirmTransactionWithSignersFunction = (
   transaction: SendableTransaction,
-  config?: Omit<
-    SendAndConfirmTransactionWithBlockhashLifetimeConfig,
-    "confirmRecentTransaction" | "rpc" | "transaction"
-  >,
+  config?: SendAndConfirmTransactionConfig,
 ) => Promise<Signature>;
 
 type SendAndConfirmTransactionWithSignersFactoryConfig<TCluster> = {
-  rpc: Rpc<GetEpochInfoApi & GetSignatureStatusesApi & SendTransactionApi & GetLatestBlockhashApi> & {
+  rpc: Rpc<GetEpochInfoApi & GetLatestBlockhashApi & GetSignatureStatusesApi & SendTransactionApi & SimulateTransactionApi> & {
     "~cluster"?: TCluster;
   };
   rpcSubscriptions: RpcSubscriptions<SignatureNotificationsApi & SlotNotificationsApi> & {
@@ -90,13 +123,30 @@ export function sendAndConfirmTransactionWithSignersFactory<
   // @ts-ignore - TODO(FIXME)
   const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
   return async function sendAndConfirmTransactionWithSigners(transaction, config = { commitment: "confirmed" }) {
+    // Merge user config with defaults
+    const prepareTransactionConfig = {
+      computeUnitLimitMultiplier: 1.1,
+      allowComputeUnitLimitReset: true,
+      forceBlockhashReset: false,
+      ...config.prepareTransactionConfig,
+    };
     if ("messageBytes" in transaction == false) {
-      if ("lifetimeConstraint" in transaction === false) {
-        const { value: latestBlockhash } = await rpc.getLatestBlockhash().send({ abortSignal: config.abortSignal });
-        transaction = setTransactionMessageLifetimeUsingBlockhash(latestBlockhash, transaction);
-        assertIsTransactionMessageWithBlockhashLifetime(transaction);
+      // Check if transaction needs preparation (missing blockhash or compute units)
+      const needsBlockhash = !("lifetimeConstraint" in transaction) || prepareTransactionConfig.forceBlockhashReset;
+      const needsComputeUnits = "instructions" in transaction && !hasSetComputeLimitInstruction(transaction) && prepareTransactionConfig.allowComputeUnitLimitReset;
+
+      // Always prepare transaction if it needs blockhash or compute units
+      if (needsBlockhash || needsComputeUnits) {
+        debug(`Preparing transaction: ${needsComputeUnits ? '\n\t- estimating compute units' : ''} ${needsBlockhash ? '\n\t- fetching latest blockhash' : ''}`, 'debug');
+        transaction = await prepareTransaction({
+          transaction: transaction as PrepareCompilableTransactionMessage,
+          rpc,
+          computeUnitLimitMultiplier: prepareTransactionConfig.computeUnitLimitMultiplier,
+          computeUnitLimitReset: needsComputeUnits,
+          blockhashReset: needsBlockhash,
+        });
       }
-      transaction = (await signTransactionMessageWithSigners(transaction)) as Readonly<
+      transaction = (await signTransactionMessageWithSigners(transaction as CompilableTransactionMessageWithSigners)) as Readonly<
         FullySignedTransaction & TransactionWithBlockhashLifetime
       >;
     }
@@ -106,3 +156,4 @@ export function sendAndConfirmTransactionWithSignersFactory<
     return getSignatureFromTransaction(transaction);
   };
 }
+

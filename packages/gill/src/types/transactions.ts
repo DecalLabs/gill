@@ -11,12 +11,12 @@ import type {
 import type { Simplify } from ".";
 
 export type CreateTransactionInput<
-  TVersion extends TransactionVersion,
+  TVersion extends TransactionVersion = "legacy",
   TFeePayer extends Address | TransactionSigner = TransactionSigner,
   TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"] | undefined = undefined,
 > = {
   /**
-   * Transaction version
+   * Transaction version (default: "legacy")
    * - `legacy` is commonly used
    * - `0` is needed for use with Address Lookup Tables
    *

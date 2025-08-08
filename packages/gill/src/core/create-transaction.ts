@@ -25,35 +25,35 @@ import type { CreateTransactionInput, FullTransaction } from "../types/transacti
 /**
  * Simple interface for creating a Solana transaction
  */
-export function createTransaction<TVersion extends TransactionVersion, TFeePayer extends TransactionSigner>(
+export function createTransaction<TVersion extends TransactionVersion = "legacy", TFeePayer extends TransactionSigner = TransactionSigner>(
   props: CreateTransactionInput<TVersion, TFeePayer>,
 ): FullTransaction<TVersion, TransactionMessageWithFeePayerSigner>;
-export function createTransaction<TVersion extends TransactionVersion, TFeePayer extends Address>(
+export function createTransaction<TVersion extends TransactionVersion = "legacy", TFeePayer extends Address = Address>(
   props: CreateTransactionInput<TVersion, TFeePayer>,
 ): FullTransaction<TVersion, TransactionMessageWithFeePayer>;
 export function createTransaction<
-  TVersion extends TransactionVersion,
-  TFeePayer extends TransactionSigner,
-  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
+  TVersion extends TransactionVersion = "legacy",
+  TFeePayer extends TransactionSigner = TransactionSigner,
+  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"] = TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
 >(
   props: CreateTransactionInput<TVersion, TFeePayer, TLifetimeConstraint>,
 ): Simplify<FullTransaction<TVersion, TransactionMessageWithFeePayerSigner, TransactionMessageWithBlockhashLifetime>>;
 export function createTransaction<
-  TVersion extends TransactionVersion,
-  TFeePayer extends Address,
-  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
+  TVersion extends TransactionVersion = "legacy",
+  TFeePayer extends Address = Address,
+  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"] = TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
 >(
   props: CreateTransactionInput<TVersion, TFeePayer, TLifetimeConstraint>,
 ): Simplify<FullTransaction<TVersion, TransactionMessageWithFeePayer, TransactionMessageWithBlockhashLifetime>>;
 export function createTransaction<
-  TVersion extends TransactionVersion,
-  TFeePayer extends Address | TransactionSigner,
-  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
+  TVersion extends TransactionVersion = "legacy",
+  TFeePayer extends Address | TransactionSigner = Address | TransactionSigner,
+  TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"] = TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
 >(
   props: CreateTransactionInput<TVersion, TFeePayer, TLifetimeConstraint>,
 ): Simplify<FullTransaction<TVersion, TransactionMessageWithFeePayer, TransactionMessageWithBlockhashLifetime>>;
-export function createTransaction<TVersion extends TransactionVersion, TFeePayer extends Address | TransactionSigner>({
-  version,
+export function createTransaction<TVersion extends TransactionVersion = "legacy", TFeePayer extends Address | TransactionSigner = TransactionSigner>({
+  version = "legacy" as TVersion,
   feePayer,
   instructions,
   latestBlockhash,

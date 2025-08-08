@@ -12,6 +12,21 @@ describe("createTransaction", () => {
     signer = await generateKeyPairSigner();
   });
 
+  test("create a transaction without version (defaults to legacy)", () => {
+    const tx = createTransaction({
+      feePayer: signer,
+      instructions: [],
+    });
+
+    assert.equal(tx.version, "legacy");
+    assert.equal(tx.feePayer.address, signer.address);
+    assert.equal(isKeyPairSigner(tx.feePayer), true);
+    assert.equal(tx.instructions.length, 0);
+    assert.equal(Object.hasOwn(tx, "lifetimeConstraint"), false);
+    assert.equal(hasSetComputeUnitPriceInstruction(tx), false);
+    assert.equal(hasSetComputeLimitInstruction(tx), false);
+  });
+
   test("create a legacy transaction with a signer as the feePayer", () => {
     const tx = createTransaction({
       version: "legacy",

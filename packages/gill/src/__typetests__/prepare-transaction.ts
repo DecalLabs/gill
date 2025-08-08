@@ -22,7 +22,7 @@ async () => {
     TransactionMessageWithBlockhashLifetime;
 
   // @ts-expect-error Base transaction should not be a signable
-  signTransactionMessageWithSigners(transaction);
+  signTransactionMessageWithSigners(transactionWithoutBlockhash);
 
   signTransactionMessageWithSigners(transactionWithBlockhash);
 
