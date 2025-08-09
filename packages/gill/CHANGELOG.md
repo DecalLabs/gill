@@ -1,5 +1,20 @@
 # gill
 
+## 0.11.0
+
+### Minor Changes
+
+- [#197](https://github.com/DecalLabs/gill/pull/197)
+  [`7f77aa4`](https://github.com/DecalLabs/gill/commit/7f77aa47385680bfb331e36f4f2a8d6a0c8aa250) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - allow transactions without a latest blockhash and auto fetch them when
+  not provided in `sendAndConfirmTransactionWithSignersFactory`
+
+### Patch Changes
+
+- [#196](https://github.com/DecalLabs/gill/pull/196)
+  [`a828da0`](https://github.com/DecalLabs/gill/commit/a828da0b2e4e87436d254062d339167fed3db8ab) Thanks
+  [@nickfrosty](https://github.com/nickfrosty)! - make `version` optional (default of `legacy`) in `createTransaction`
+
 ## 0.10.3
 
 ### Patch Changes

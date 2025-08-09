@@ -1,7 +1,7 @@
 {
   "name": "gill",
   "license": "MIT",
-  "version": "0.10.3",
+  "version": "0.11.0",
   "description": "a modern javascript/typescript client library for interacting with the Solana blockchain",
   "scripts": {
     "clean": "rimraf coverage dist build node_modules .turbo .docs",

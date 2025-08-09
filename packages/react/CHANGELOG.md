@@ -1,5 +1,13 @@
 # gill-react
 
+## 0.5.1
+
+### Patch Changes
+
+- Updated dependencies [[`7f77aa4`](https://github.com/DecalLabs/gill/commit/7f77aa47385680bfb331e36f4f2a8d6a0c8aa250),
+  [`a828da0`](https://github.com/DecalLabs/gill/commit/a828da0b2e4e87436d254062d339167fed3db8ab)]:
+  - gill@0.11.0
+
 ## 0.5.0
 
 ### Minor Changes
