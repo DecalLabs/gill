@@ -41,6 +41,10 @@ export function tokenUiAmountToAmount(uiAmount: number, decimals: number): bigin
 
 /**
  * Converts a raw amount (BigInt) to UI amount (human-readable)
+ *
+ * Note: This function does not support token balances that utilize the various "UI amount modifying"
+ * Token Extensions, like the Interest-Bearing extension.
+ *
  * @param amount The raw token amount as BigInt
  * @param decimals The number of decimals for the token
  * @returns UI representation of the amount as a number
