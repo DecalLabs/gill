@@ -3,6 +3,7 @@ export * from "./balance";
 export * from "./client";
 export * from "./latest-blockhash";
 export * from "./program-accounts";
+export * from "./get-token-accounts-by-owner";
 export * from "./recent-prioritization-fees";
 export * from "./signature-statuses";
 export * from "./signatures-for-address";
