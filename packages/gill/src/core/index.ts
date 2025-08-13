@@ -17,3 +17,4 @@ export * from "./simulate-transaction";
 export * from "./get-oldest-signature";
 export * from "./insert-reference-key";
 export * from "./create-codama-config";
+export * from "./transaction-builder";
