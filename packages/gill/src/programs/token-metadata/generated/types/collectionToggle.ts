@@ -21,83 +21,53 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
-import {
-  getCollectionDecoder,
-  getCollectionEncoder,
-  type Collection,
-  type CollectionArgs,
-} from '.';
+} from "@solana/kit";
+import { getCollectionDecoder, getCollectionEncoder, type Collection, type CollectionArgs } from ".";
 
 export type CollectionToggle =
-  | { __kind: 'None' }
-  | { __kind: 'Clear' }
-  | { __kind: 'Set'; fields: readonly [Collection] };
+  | { __kind: "None" }
+  | { __kind: "Clear" }
+  | { __kind: "Set"; fields: readonly [Collection] };
 
 export type CollectionToggleArgs =
-  | { __kind: 'None' }
-  | { __kind: 'Clear' }
-  | { __kind: 'Set'; fields: readonly [CollectionArgs] };
+  | { __kind: "None" }
+  | { __kind: "Clear" }
+  | { __kind: "Set"; fields: readonly [CollectionArgs] };
 
 export function getCollectionToggleEncoder(): Encoder<CollectionToggleArgs> {
   return getDiscriminatedUnionEncoder([
-    ['None', getUnitEncoder()],
-    ['Clear', getUnitEncoder()],
-    [
-      'Set',
-      getStructEncoder([['fields', getTupleEncoder([getCollectionEncoder()])]]),
-    ],
+    ["None", getUnitEncoder()],
+    ["Clear", getUnitEncoder()],
+    ["Set", getStructEncoder([["fields", getTupleEncoder([getCollectionEncoder()])]])],
   ]);
 }
 
 export function getCollectionToggleDecoder(): Decoder<CollectionToggle> {
   return getDiscriminatedUnionDecoder([
-    ['None', getUnitDecoder()],
-    ['Clear', getUnitDecoder()],
-    [
-      'Set',
-      getStructDecoder([['fields', getTupleDecoder([getCollectionDecoder()])]]),
-    ],
+    ["None", getUnitDecoder()],
+    ["Clear", getUnitDecoder()],
+    ["Set", getStructDecoder([["fields", getTupleDecoder([getCollectionDecoder()])]])],
   ]);
 }
 
-export function getCollectionToggleCodec(): Codec<
-  CollectionToggleArgs,
-  CollectionToggle
-> {
-  return combineCodec(
-    getCollectionToggleEncoder(),
-    getCollectionToggleDecoder()
-  );
+export function getCollectionToggleCodec(): Codec<CollectionToggleArgs, CollectionToggle> {
+  return combineCodec(getCollectionToggleEncoder(), getCollectionToggleDecoder());
 }
 
 // Data Enum Helpers.
+export function collectionToggle(kind: "None"): GetDiscriminatedUnionVariant<CollectionToggleArgs, "__kind", "None">;
+export function collectionToggle(kind: "Clear"): GetDiscriminatedUnionVariant<CollectionToggleArgs, "__kind", "Clear">;
 export function collectionToggle(
-  kind: 'None'
-): GetDiscriminatedUnionVariant<CollectionToggleArgs, '__kind', 'None'>;
-export function collectionToggle(
-  kind: 'Clear'
-): GetDiscriminatedUnionVariant<CollectionToggleArgs, '__kind', 'Clear'>;
-export function collectionToggle(
-  kind: 'Set',
-  data: GetDiscriminatedUnionVariantContent<
-    CollectionToggleArgs,
-    '__kind',
-    'Set'
-  >['fields']
-): GetDiscriminatedUnionVariant<CollectionToggleArgs, '__kind', 'Set'>;
-export function collectionToggle<
-  K extends CollectionToggleArgs['__kind'],
-  Data,
->(kind: K, data?: Data) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Set",
+  data: GetDiscriminatedUnionVariantContent<CollectionToggleArgs, "__kind", "Set">["fields"],
+): GetDiscriminatedUnionVariant<CollectionToggleArgs, "__kind", "Set">;
+export function collectionToggle<K extends CollectionToggleArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isCollectionToggle<K extends CollectionToggle['__kind']>(
+export function isCollectionToggle<K extends CollectionToggle["__kind"]>(
   kind: K,
-  value: CollectionToggle
+  value: CollectionToggle,
 ): value is CollectionToggle & { __kind: K } {
   return value.__kind === kind;
 }

@@ -26,7 +26,7 @@ import {
   type GetDiscriminatedUnionVariantContent,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getAuthorizationDataDecoder,
   getAuthorizationDataEncoder,
@@ -56,11 +56,11 @@ import {
   type TokenStandardArgs,
   type UsesToggle,
   type UsesToggleArgs,
-} from '.';
+} from ".";
 
 export type UpdateArgs =
   | {
-      __kind: 'V1';
+      __kind: "V1";
       newUpdateAuthority: Option<Address>;
       data: Option<Data>;
       primarySaleHappened: Option<boolean>;
@@ -72,7 +72,7 @@ export type UpdateArgs =
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsUpdateAuthorityV2';
+      __kind: "AsUpdateAuthorityV2";
       newUpdateAuthority: Option<Address>;
       data: Option<Data>;
       primarySaleHappened: Option<boolean>;
@@ -85,7 +85,7 @@ export type UpdateArgs =
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsAuthorityItemDelegateV2';
+      __kind: "AsAuthorityItemDelegateV2";
       newUpdateAuthority: Option<Address>;
       primarySaleHappened: Option<boolean>;
       isMutable: Option<boolean>;
@@ -93,39 +93,39 @@ export type UpdateArgs =
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsCollectionDelegateV2';
+      __kind: "AsCollectionDelegateV2";
       collection: CollectionToggle;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsDataDelegateV2';
+      __kind: "AsDataDelegateV2";
       data: Option<Data>;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsProgrammableConfigDelegateV2';
+      __kind: "AsProgrammableConfigDelegateV2";
       ruleSet: RuleSetToggle;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsDataItemDelegateV2';
+      __kind: "AsDataItemDelegateV2";
       data: Option<Data>;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsCollectionItemDelegateV2';
+      __kind: "AsCollectionItemDelegateV2";
       collection: CollectionToggle;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'AsProgrammableConfigItemDelegateV2';
+      __kind: "AsProgrammableConfigItemDelegateV2";
       ruleSet: RuleSetToggle;
       authorizationData: Option<AuthorizationData>;
     };
 
 export type UpdateArgsArgs =
   | {
-      __kind: 'V1';
+      __kind: "V1";
       newUpdateAuthority: OptionOrNullable<Address>;
       data: OptionOrNullable<DataArgs>;
       primarySaleHappened: OptionOrNullable<boolean>;
@@ -137,7 +137,7 @@ export type UpdateArgsArgs =
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsUpdateAuthorityV2';
+      __kind: "AsUpdateAuthorityV2";
       newUpdateAuthority: OptionOrNullable<Address>;
       data: OptionOrNullable<DataArgs>;
       primarySaleHappened: OptionOrNullable<boolean>;
@@ -150,7 +150,7 @@ export type UpdateArgsArgs =
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsAuthorityItemDelegateV2';
+      __kind: "AsAuthorityItemDelegateV2";
       newUpdateAuthority: OptionOrNullable<Address>;
       primarySaleHappened: OptionOrNullable<boolean>;
       isMutable: OptionOrNullable<boolean>;
@@ -158,32 +158,32 @@ export type UpdateArgsArgs =
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsCollectionDelegateV2';
+      __kind: "AsCollectionDelegateV2";
       collection: CollectionToggleArgs;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsDataDelegateV2';
+      __kind: "AsDataDelegateV2";
       data: OptionOrNullable<DataArgs>;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsProgrammableConfigDelegateV2';
+      __kind: "AsProgrammableConfigDelegateV2";
       ruleSet: RuleSetToggleArgs;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsDataItemDelegateV2';
+      __kind: "AsDataItemDelegateV2";
       data: OptionOrNullable<DataArgs>;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsCollectionItemDelegateV2';
+      __kind: "AsCollectionItemDelegateV2";
       collection: CollectionToggleArgs;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AsProgrammableConfigItemDelegateV2';
+      __kind: "AsProgrammableConfigItemDelegateV2";
       ruleSet: RuleSetToggleArgs;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     };
@@ -191,84 +191,84 @@ export type UpdateArgsArgs =
 export function getUpdateArgsEncoder(): Encoder<UpdateArgsArgs> {
   return getDiscriminatedUnionEncoder([
     [
-      'V1',
+      "V1",
       getStructEncoder([
-        ['newUpdateAuthority', getOptionEncoder(getAddressEncoder())],
-        ['data', getOptionEncoder(getDataEncoder())],
-        ['primarySaleHappened', getOptionEncoder(getBooleanEncoder())],
-        ['isMutable', getOptionEncoder(getBooleanEncoder())],
-        ['collection', getCollectionToggleEncoder()],
-        ['collectionDetails', getCollectionDetailsToggleEncoder()],
-        ['uses', getUsesToggleEncoder()],
-        ['ruleSet', getRuleSetToggleEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["newUpdateAuthority", getOptionEncoder(getAddressEncoder())],
+        ["data", getOptionEncoder(getDataEncoder())],
+        ["primarySaleHappened", getOptionEncoder(getBooleanEncoder())],
+        ["isMutable", getOptionEncoder(getBooleanEncoder())],
+        ["collection", getCollectionToggleEncoder()],
+        ["collectionDetails", getCollectionDetailsToggleEncoder()],
+        ["uses", getUsesToggleEncoder()],
+        ["ruleSet", getRuleSetToggleEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsUpdateAuthorityV2',
+      "AsUpdateAuthorityV2",
       getStructEncoder([
-        ['newUpdateAuthority', getOptionEncoder(getAddressEncoder())],
-        ['data', getOptionEncoder(getDataEncoder())],
-        ['primarySaleHappened', getOptionEncoder(getBooleanEncoder())],
-        ['isMutable', getOptionEncoder(getBooleanEncoder())],
-        ['collection', getCollectionToggleEncoder()],
-        ['collectionDetails', getCollectionDetailsToggleEncoder()],
-        ['uses', getUsesToggleEncoder()],
-        ['ruleSet', getRuleSetToggleEncoder()],
-        ['tokenStandard', getOptionEncoder(getTokenStandardEncoder())],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["newUpdateAuthority", getOptionEncoder(getAddressEncoder())],
+        ["data", getOptionEncoder(getDataEncoder())],
+        ["primarySaleHappened", getOptionEncoder(getBooleanEncoder())],
+        ["isMutable", getOptionEncoder(getBooleanEncoder())],
+        ["collection", getCollectionToggleEncoder()],
+        ["collectionDetails", getCollectionDetailsToggleEncoder()],
+        ["uses", getUsesToggleEncoder()],
+        ["ruleSet", getRuleSetToggleEncoder()],
+        ["tokenStandard", getOptionEncoder(getTokenStandardEncoder())],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsAuthorityItemDelegateV2',
+      "AsAuthorityItemDelegateV2",
       getStructEncoder([
-        ['newUpdateAuthority', getOptionEncoder(getAddressEncoder())],
-        ['primarySaleHappened', getOptionEncoder(getBooleanEncoder())],
-        ['isMutable', getOptionEncoder(getBooleanEncoder())],
-        ['tokenStandard', getOptionEncoder(getTokenStandardEncoder())],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["newUpdateAuthority", getOptionEncoder(getAddressEncoder())],
+        ["primarySaleHappened", getOptionEncoder(getBooleanEncoder())],
+        ["isMutable", getOptionEncoder(getBooleanEncoder())],
+        ["tokenStandard", getOptionEncoder(getTokenStandardEncoder())],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsCollectionDelegateV2',
+      "AsCollectionDelegateV2",
       getStructEncoder([
-        ['collection', getCollectionToggleEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["collection", getCollectionToggleEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsDataDelegateV2',
+      "AsDataDelegateV2",
       getStructEncoder([
-        ['data', getOptionEncoder(getDataEncoder())],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["data", getOptionEncoder(getDataEncoder())],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsProgrammableConfigDelegateV2',
+      "AsProgrammableConfigDelegateV2",
       getStructEncoder([
-        ['ruleSet', getRuleSetToggleEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["ruleSet", getRuleSetToggleEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsDataItemDelegateV2',
+      "AsDataItemDelegateV2",
       getStructEncoder([
-        ['data', getOptionEncoder(getDataEncoder())],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["data", getOptionEncoder(getDataEncoder())],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsCollectionItemDelegateV2',
+      "AsCollectionItemDelegateV2",
       getStructEncoder([
-        ['collection', getCollectionToggleEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["collection", getCollectionToggleEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'AsProgrammableConfigItemDelegateV2',
+      "AsProgrammableConfigItemDelegateV2",
       getStructEncoder([
-        ['ruleSet', getRuleSetToggleEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["ruleSet", getRuleSetToggleEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
   ]);
@@ -277,84 +277,84 @@ export function getUpdateArgsEncoder(): Encoder<UpdateArgsArgs> {
 export function getUpdateArgsDecoder(): Decoder<UpdateArgs> {
   return getDiscriminatedUnionDecoder([
     [
-      'V1',
+      "V1",
       getStructDecoder([
-        ['newUpdateAuthority', getOptionDecoder(getAddressDecoder())],
-        ['data', getOptionDecoder(getDataDecoder())],
-        ['primarySaleHappened', getOptionDecoder(getBooleanDecoder())],
-        ['isMutable', getOptionDecoder(getBooleanDecoder())],
-        ['collection', getCollectionToggleDecoder()],
-        ['collectionDetails', getCollectionDetailsToggleDecoder()],
-        ['uses', getUsesToggleDecoder()],
-        ['ruleSet', getRuleSetToggleDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["newUpdateAuthority", getOptionDecoder(getAddressDecoder())],
+        ["data", getOptionDecoder(getDataDecoder())],
+        ["primarySaleHappened", getOptionDecoder(getBooleanDecoder())],
+        ["isMutable", getOptionDecoder(getBooleanDecoder())],
+        ["collection", getCollectionToggleDecoder()],
+        ["collectionDetails", getCollectionDetailsToggleDecoder()],
+        ["uses", getUsesToggleDecoder()],
+        ["ruleSet", getRuleSetToggleDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsUpdateAuthorityV2',
+      "AsUpdateAuthorityV2",
       getStructDecoder([
-        ['newUpdateAuthority', getOptionDecoder(getAddressDecoder())],
-        ['data', getOptionDecoder(getDataDecoder())],
-        ['primarySaleHappened', getOptionDecoder(getBooleanDecoder())],
-        ['isMutable', getOptionDecoder(getBooleanDecoder())],
-        ['collection', getCollectionToggleDecoder()],
-        ['collectionDetails', getCollectionDetailsToggleDecoder()],
-        ['uses', getUsesToggleDecoder()],
-        ['ruleSet', getRuleSetToggleDecoder()],
-        ['tokenStandard', getOptionDecoder(getTokenStandardDecoder())],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["newUpdateAuthority", getOptionDecoder(getAddressDecoder())],
+        ["data", getOptionDecoder(getDataDecoder())],
+        ["primarySaleHappened", getOptionDecoder(getBooleanDecoder())],
+        ["isMutable", getOptionDecoder(getBooleanDecoder())],
+        ["collection", getCollectionToggleDecoder()],
+        ["collectionDetails", getCollectionDetailsToggleDecoder()],
+        ["uses", getUsesToggleDecoder()],
+        ["ruleSet", getRuleSetToggleDecoder()],
+        ["tokenStandard", getOptionDecoder(getTokenStandardDecoder())],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsAuthorityItemDelegateV2',
+      "AsAuthorityItemDelegateV2",
       getStructDecoder([
-        ['newUpdateAuthority', getOptionDecoder(getAddressDecoder())],
-        ['primarySaleHappened', getOptionDecoder(getBooleanDecoder())],
-        ['isMutable', getOptionDecoder(getBooleanDecoder())],
-        ['tokenStandard', getOptionDecoder(getTokenStandardDecoder())],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["newUpdateAuthority", getOptionDecoder(getAddressDecoder())],
+        ["primarySaleHappened", getOptionDecoder(getBooleanDecoder())],
+        ["isMutable", getOptionDecoder(getBooleanDecoder())],
+        ["tokenStandard", getOptionDecoder(getTokenStandardDecoder())],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsCollectionDelegateV2',
+      "AsCollectionDelegateV2",
       getStructDecoder([
-        ['collection', getCollectionToggleDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["collection", getCollectionToggleDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsDataDelegateV2',
+      "AsDataDelegateV2",
       getStructDecoder([
-        ['data', getOptionDecoder(getDataDecoder())],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["data", getOptionDecoder(getDataDecoder())],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsProgrammableConfigDelegateV2',
+      "AsProgrammableConfigDelegateV2",
       getStructDecoder([
-        ['ruleSet', getRuleSetToggleDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["ruleSet", getRuleSetToggleDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsDataItemDelegateV2',
+      "AsDataItemDelegateV2",
       getStructDecoder([
-        ['data', getOptionDecoder(getDataDecoder())],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["data", getOptionDecoder(getDataDecoder())],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsCollectionItemDelegateV2',
+      "AsCollectionItemDelegateV2",
       getStructDecoder([
-        ['collection', getCollectionToggleDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["collection", getCollectionToggleDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'AsProgrammableConfigItemDelegateV2',
+      "AsProgrammableConfigItemDelegateV2",
       getStructDecoder([
-        ['ruleSet', getRuleSetToggleDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["ruleSet", getRuleSetToggleDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
   ]);
@@ -366,113 +366,48 @@ export function getUpdateArgsCodec(): Codec<UpdateArgsArgs, UpdateArgs> {
 
 // Data Enum Helpers.
 export function updateArgs(
-  kind: 'V1',
-  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, '__kind', 'V1'>
-): GetDiscriminatedUnionVariant<UpdateArgsArgs, '__kind', 'V1'>;
+  kind: "V1",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "V1">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "V1">;
 export function updateArgs(
-  kind: 'AsUpdateAuthorityV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsUpdateAuthorityV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsUpdateAuthorityV2'
->;
+  kind: "AsUpdateAuthorityV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsUpdateAuthorityV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsUpdateAuthorityV2">;
 export function updateArgs(
-  kind: 'AsAuthorityItemDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsAuthorityItemDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsAuthorityItemDelegateV2'
->;
+  kind: "AsAuthorityItemDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsAuthorityItemDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsAuthorityItemDelegateV2">;
 export function updateArgs(
-  kind: 'AsCollectionDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsCollectionDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsCollectionDelegateV2'
->;
+  kind: "AsCollectionDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsCollectionDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsCollectionDelegateV2">;
 export function updateArgs(
-  kind: 'AsDataDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsDataDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<UpdateArgsArgs, '__kind', 'AsDataDelegateV2'>;
+  kind: "AsDataDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsDataDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsDataDelegateV2">;
 export function updateArgs(
-  kind: 'AsProgrammableConfigDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsProgrammableConfigDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsProgrammableConfigDelegateV2'
->;
+  kind: "AsProgrammableConfigDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsProgrammableConfigDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsProgrammableConfigDelegateV2">;
 export function updateArgs(
-  kind: 'AsDataItemDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsDataItemDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsDataItemDelegateV2'
->;
+  kind: "AsDataItemDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsDataItemDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsDataItemDelegateV2">;
 export function updateArgs(
-  kind: 'AsCollectionItemDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsCollectionItemDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsCollectionItemDelegateV2'
->;
+  kind: "AsCollectionItemDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsCollectionItemDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsCollectionItemDelegateV2">;
 export function updateArgs(
-  kind: 'AsProgrammableConfigItemDelegateV2',
-  data: GetDiscriminatedUnionVariantContent<
-    UpdateArgsArgs,
-    '__kind',
-    'AsProgrammableConfigItemDelegateV2'
-  >
-): GetDiscriminatedUnionVariant<
-  UpdateArgsArgs,
-  '__kind',
-  'AsProgrammableConfigItemDelegateV2'
->;
-export function updateArgs<K extends UpdateArgsArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "AsProgrammableConfigItemDelegateV2",
+  data: GetDiscriminatedUnionVariantContent<UpdateArgsArgs, "__kind", "AsProgrammableConfigItemDelegateV2">,
+): GetDiscriminatedUnionVariant<UpdateArgsArgs, "__kind", "AsProgrammableConfigItemDelegateV2">;
+export function updateArgs<K extends UpdateArgsArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isUpdateArgs<K extends UpdateArgs['__kind']>(
+export function isUpdateArgs<K extends UpdateArgs["__kind"]>(
   kind: K,
-  value: UpdateArgs
+  value: UpdateArgs,
 ): value is UpdateArgs & { __kind: K } {
   return value.__kind === kind;
 }

@@ -20,22 +20,18 @@ import {
   type Decoder,
   type Encoder,
   type ReadonlyUint8Array,
-} from '@solana/kit';
+} from "@solana/kit";
 
 export type ProofInfo = { proof: Array<ReadonlyUint8Array> };
 
 export type ProofInfoArgs = ProofInfo;
 
 export function getProofInfoEncoder(): Encoder<ProofInfoArgs> {
-  return getStructEncoder([
-    ['proof', getArrayEncoder(fixEncoderSize(getBytesEncoder(), 32))],
-  ]);
+  return getStructEncoder([["proof", getArrayEncoder(fixEncoderSize(getBytesEncoder(), 32))]]);
 }
 
 export function getProofInfoDecoder(): Decoder<ProofInfo> {
-  return getStructDecoder([
-    ['proof', getArrayDecoder(fixDecoderSize(getBytesDecoder(), 32))],
-  ]);
+  return getStructDecoder([["proof", getArrayDecoder(fixDecoderSize(getBytesDecoder(), 32))]]);
 }
 
 export function getProofInfoCodec(): Codec<ProofInfoArgs, ProofInfo> {

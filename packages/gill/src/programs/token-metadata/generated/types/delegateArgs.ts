@@ -26,295 +26,227 @@ import {
   type GetDiscriminatedUnionVariantContent,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getAuthorizationDataDecoder,
   getAuthorizationDataEncoder,
   type AuthorizationData,
   type AuthorizationDataArgs,
-} from '.';
+} from ".";
 
 export type DelegateArgs =
-  | { __kind: 'CollectionV1'; authorizationData: Option<AuthorizationData> }
+  | { __kind: "CollectionV1"; authorizationData: Option<AuthorizationData> }
   | {
-      __kind: 'SaleV1';
+      __kind: "SaleV1";
       amount: bigint;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'TransferV1';
+      __kind: "TransferV1";
       amount: bigint;
       authorizationData: Option<AuthorizationData>;
     }
-  | { __kind: 'DataV1'; authorizationData: Option<AuthorizationData> }
+  | { __kind: "DataV1"; authorizationData: Option<AuthorizationData> }
   | {
-      __kind: 'UtilityV1';
+      __kind: "UtilityV1";
       amount: bigint;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'StakingV1';
+      __kind: "StakingV1";
       amount: bigint;
       authorizationData: Option<AuthorizationData>;
     }
-  | { __kind: 'StandardV1'; amount: bigint }
+  | { __kind: "StandardV1"; amount: bigint }
   | {
-      __kind: 'LockedTransferV1';
+      __kind: "LockedTransferV1";
       amount: bigint;
       lockedAddress: Address;
       authorizationData: Option<AuthorizationData>;
     }
   | {
-      __kind: 'ProgrammableConfigV1';
+      __kind: "ProgrammableConfigV1";
       authorizationData: Option<AuthorizationData>;
     }
-  | { __kind: 'AuthorityItemV1'; authorizationData: Option<AuthorizationData> }
-  | { __kind: 'DataItemV1'; authorizationData: Option<AuthorizationData> }
-  | { __kind: 'CollectionItemV1'; authorizationData: Option<AuthorizationData> }
+  | { __kind: "AuthorityItemV1"; authorizationData: Option<AuthorizationData> }
+  | { __kind: "DataItemV1"; authorizationData: Option<AuthorizationData> }
+  | { __kind: "CollectionItemV1"; authorizationData: Option<AuthorizationData> }
   | {
-      __kind: 'ProgrammableConfigItemV1';
+      __kind: "ProgrammableConfigItemV1";
       authorizationData: Option<AuthorizationData>;
     }
-  | { __kind: 'PrintDelegateV1'; authorizationData: Option<AuthorizationData> };
+  | { __kind: "PrintDelegateV1"; authorizationData: Option<AuthorizationData> };
 
 export type DelegateArgsArgs =
   | {
-      __kind: 'CollectionV1';
+      __kind: "CollectionV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'SaleV1';
+      __kind: "SaleV1";
       amount: number | bigint;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'TransferV1';
+      __kind: "TransferV1";
       amount: number | bigint;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'DataV1';
+      __kind: "DataV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'UtilityV1';
+      __kind: "UtilityV1";
       amount: number | bigint;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'StakingV1';
+      __kind: "StakingV1";
       amount: number | bigint;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
-  | { __kind: 'StandardV1'; amount: number | bigint }
+  | { __kind: "StandardV1"; amount: number | bigint }
   | {
-      __kind: 'LockedTransferV1';
+      __kind: "LockedTransferV1";
       amount: number | bigint;
       lockedAddress: Address;
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'ProgrammableConfigV1';
+      __kind: "ProgrammableConfigV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'AuthorityItemV1';
+      __kind: "AuthorityItemV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'DataItemV1';
+      __kind: "DataItemV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'CollectionItemV1';
+      __kind: "CollectionItemV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'ProgrammableConfigItemV1';
+      __kind: "ProgrammableConfigItemV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     }
   | {
-      __kind: 'PrintDelegateV1';
+      __kind: "PrintDelegateV1";
       authorizationData: OptionOrNullable<AuthorizationDataArgs>;
     };
 
 export function getDelegateArgsEncoder(): Encoder<DelegateArgsArgs> {
   return getDiscriminatedUnionEncoder([
+    ["CollectionV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
     [
-      'CollectionV1',
+      "SaleV1",
       getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["amount", getU64Encoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'SaleV1',
+      "TransferV1",
       getStructEncoder([
-        ['amount', getU64Encoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["amount", getU64Encoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
+      ]),
+    ],
+    ["DataV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
+    [
+      "UtilityV1",
+      getStructEncoder([
+        ["amount", getU64Encoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'TransferV1',
+      "StakingV1",
       getStructEncoder([
-        ['amount', getU64Encoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
+        ["amount", getU64Encoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
+      ]),
+    ],
+    ["StandardV1", getStructEncoder([["amount", getU64Encoder()]])],
+    [
+      "LockedTransferV1",
+      getStructEncoder([
+        ["amount", getU64Encoder()],
+        ["lockedAddress", getAddressEncoder()],
+        ["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())],
       ]),
     ],
     [
-      'DataV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
+      "ProgrammableConfigV1",
+      getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]]),
     ],
+    ["AuthorityItemV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
+    ["DataItemV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
+    ["CollectionItemV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
     [
-      'UtilityV1',
-      getStructEncoder([
-        ['amount', getU64Encoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
+      "ProgrammableConfigItemV1",
+      getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]]),
     ],
-    [
-      'StakingV1',
-      getStructEncoder([
-        ['amount', getU64Encoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    ['StandardV1', getStructEncoder([['amount', getU64Encoder()]])],
-    [
-      'LockedTransferV1',
-      getStructEncoder([
-        ['amount', getU64Encoder()],
-        ['lockedAddress', getAddressEncoder()],
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'ProgrammableConfigV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'AuthorityItemV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'DataItemV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'CollectionItemV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'ProgrammableConfigItemV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
-    [
-      'PrintDelegateV1',
-      getStructEncoder([
-        ['authorizationData', getOptionEncoder(getAuthorizationDataEncoder())],
-      ]),
-    ],
+    ["PrintDelegateV1", getStructEncoder([["authorizationData", getOptionEncoder(getAuthorizationDataEncoder())]])],
   ]);
 }
 
 export function getDelegateArgsDecoder(): Decoder<DelegateArgs> {
   return getDiscriminatedUnionDecoder([
+    ["CollectionV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
     [
-      'CollectionV1',
+      "SaleV1",
       getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["amount", getU64Decoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'SaleV1',
+      "TransferV1",
       getStructDecoder([
-        ['amount', getU64Decoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["amount", getU64Decoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
+      ]),
+    ],
+    ["DataV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
+    [
+      "UtilityV1",
+      getStructDecoder([
+        ["amount", getU64Decoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'TransferV1',
+      "StakingV1",
       getStructDecoder([
-        ['amount', getU64Decoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
+        ["amount", getU64Decoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
+      ]),
+    ],
+    ["StandardV1", getStructDecoder([["amount", getU64Decoder()]])],
+    [
+      "LockedTransferV1",
+      getStructDecoder([
+        ["amount", getU64Decoder()],
+        ["lockedAddress", getAddressDecoder()],
+        ["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())],
       ]),
     ],
     [
-      'DataV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
+      "ProgrammableConfigV1",
+      getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]]),
     ],
+    ["AuthorityItemV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
+    ["DataItemV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
+    ["CollectionItemV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
     [
-      'UtilityV1',
-      getStructDecoder([
-        ['amount', getU64Decoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
+      "ProgrammableConfigItemV1",
+      getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]]),
     ],
-    [
-      'StakingV1',
-      getStructDecoder([
-        ['amount', getU64Decoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    ['StandardV1', getStructDecoder([['amount', getU64Decoder()]])],
-    [
-      'LockedTransferV1',
-      getStructDecoder([
-        ['amount', getU64Decoder()],
-        ['lockedAddress', getAddressDecoder()],
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'ProgrammableConfigV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'AuthorityItemV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'DataItemV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'CollectionItemV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'ProgrammableConfigItemV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
-    [
-      'PrintDelegateV1',
-      getStructDecoder([
-        ['authorizationData', getOptionDecoder(getAuthorizationDataDecoder())],
-      ]),
-    ],
+    ["PrintDelegateV1", getStructDecoder([["authorizationData", getOptionDecoder(getAuthorizationDataDecoder())]])],
   ]);
 }
 
@@ -324,137 +256,68 @@ export function getDelegateArgsCodec(): Codec<DelegateArgsArgs, DelegateArgs> {
 
 // Data Enum Helpers.
 export function delegateArgs(
-  kind: 'CollectionV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'CollectionV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'CollectionV1'>;
+  kind: "CollectionV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "CollectionV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "CollectionV1">;
 export function delegateArgs(
-  kind: 'SaleV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'SaleV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'SaleV1'>;
+  kind: "SaleV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "SaleV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "SaleV1">;
 export function delegateArgs(
-  kind: 'TransferV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'TransferV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'TransferV1'>;
+  kind: "TransferV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "TransferV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "TransferV1">;
 export function delegateArgs(
-  kind: 'DataV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'DataV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'DataV1'>;
+  kind: "DataV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "DataV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "DataV1">;
 export function delegateArgs(
-  kind: 'UtilityV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'UtilityV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'UtilityV1'>;
+  kind: "UtilityV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "UtilityV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "UtilityV1">;
 export function delegateArgs(
-  kind: 'StakingV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'StakingV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'StakingV1'>;
+  kind: "StakingV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "StakingV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "StakingV1">;
 export function delegateArgs(
-  kind: 'StandardV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'StandardV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'StandardV1'>;
+  kind: "StandardV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "StandardV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "StandardV1">;
 export function delegateArgs(
-  kind: 'LockedTransferV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'LockedTransferV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'LockedTransferV1'>;
+  kind: "LockedTransferV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "LockedTransferV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "LockedTransferV1">;
 export function delegateArgs(
-  kind: 'ProgrammableConfigV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'ProgrammableConfigV1'
-  >
-): GetDiscriminatedUnionVariant<
-  DelegateArgsArgs,
-  '__kind',
-  'ProgrammableConfigV1'
->;
+  kind: "ProgrammableConfigV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "ProgrammableConfigV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "ProgrammableConfigV1">;
 export function delegateArgs(
-  kind: 'AuthorityItemV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'AuthorityItemV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'AuthorityItemV1'>;
+  kind: "AuthorityItemV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "AuthorityItemV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "AuthorityItemV1">;
 export function delegateArgs(
-  kind: 'DataItemV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'DataItemV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'DataItemV1'>;
+  kind: "DataItemV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "DataItemV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "DataItemV1">;
 export function delegateArgs(
-  kind: 'CollectionItemV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'CollectionItemV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'CollectionItemV1'>;
+  kind: "CollectionItemV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "CollectionItemV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "CollectionItemV1">;
 export function delegateArgs(
-  kind: 'ProgrammableConfigItemV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'ProgrammableConfigItemV1'
-  >
-): GetDiscriminatedUnionVariant<
-  DelegateArgsArgs,
-  '__kind',
-  'ProgrammableConfigItemV1'
->;
+  kind: "ProgrammableConfigItemV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "ProgrammableConfigItemV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "ProgrammableConfigItemV1">;
 export function delegateArgs(
-  kind: 'PrintDelegateV1',
-  data: GetDiscriminatedUnionVariantContent<
-    DelegateArgsArgs,
-    '__kind',
-    'PrintDelegateV1'
-  >
-): GetDiscriminatedUnionVariant<DelegateArgsArgs, '__kind', 'PrintDelegateV1'>;
-export function delegateArgs<K extends DelegateArgsArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "PrintDelegateV1",
+  data: GetDiscriminatedUnionVariantContent<DelegateArgsArgs, "__kind", "PrintDelegateV1">,
+): GetDiscriminatedUnionVariant<DelegateArgsArgs, "__kind", "PrintDelegateV1">;
+export function delegateArgs<K extends DelegateArgsArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isDelegateArgs<K extends DelegateArgs['__kind']>(
+export function isDelegateArgs<K extends DelegateArgs["__kind"]>(
   kind: K,
-  value: DelegateArgs
+  value: DelegateArgs,
 ): value is DelegateArgs & { __kind: K } {
   return value.__kind === kind;
 }

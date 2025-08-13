@@ -15,29 +15,29 @@ import {
   getStructDecoder,
   getStructEncoder,
   type Address,
-  type Codec,
-  type Decoder,
-  type Encoder,
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
 } from "@solana/kit";
 
 export type Collection = { verified: boolean; key: Address };
 
 export type CollectionArgs = Collection;
 
-export function getCollectionEncoder(): Encoder<CollectionArgs> {
+export function getCollectionEncoder(): FixedSizeEncoder<CollectionArgs> {
   return getStructEncoder([
     ["verified", getBooleanEncoder()],
     ["key", getAddressEncoder()],
   ]);
 }
 
-export function getCollectionDecoder(): Decoder<Collection> {
+export function getCollectionDecoder(): FixedSizeDecoder<Collection> {
   return getStructDecoder([
     ["verified", getBooleanDecoder()],
     ["key", getAddressDecoder()],
   ]);
 }
 
-export function getCollectionCodec(): Codec<CollectionArgs, Collection> {
+export function getCollectionCodec(): FixedSizeCodec<CollectionArgs, Collection> {
   return combineCodec(getCollectionEncoder(), getCollectionDecoder());
 }

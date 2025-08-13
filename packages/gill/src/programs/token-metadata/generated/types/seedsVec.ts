@@ -22,28 +22,18 @@ import {
   type Decoder,
   type Encoder,
   type ReadonlyUint8Array,
-} from '@solana/kit';
+} from "@solana/kit";
 
 export type SeedsVec = { seeds: Array<ReadonlyUint8Array> };
 
 export type SeedsVecArgs = SeedsVec;
 
 export function getSeedsVecEncoder(): Encoder<SeedsVecArgs> {
-  return getStructEncoder([
-    [
-      'seeds',
-      getArrayEncoder(addEncoderSizePrefix(getBytesEncoder(), getU32Encoder())),
-    ],
-  ]);
+  return getStructEncoder([["seeds", getArrayEncoder(addEncoderSizePrefix(getBytesEncoder(), getU32Encoder()))]]);
 }
 
 export function getSeedsVecDecoder(): Decoder<SeedsVec> {
-  return getStructDecoder([
-    [
-      'seeds',
-      getArrayDecoder(addDecoderSizePrefix(getBytesDecoder(), getU32Decoder())),
-    ],
-  ]);
+  return getStructDecoder([["seeds", getArrayDecoder(addDecoderSizePrefix(getBytesDecoder(), getU32Decoder()))]]);
 }
 
 export function getSeedsVecCodec(): Codec<SeedsVecArgs, SeedsVec> {

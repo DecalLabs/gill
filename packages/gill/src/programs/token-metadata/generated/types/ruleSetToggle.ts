@@ -24,71 +24,46 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
+} from "@solana/kit";
 
-export type RuleSetToggle =
-  | { __kind: 'None' }
-  | { __kind: 'Clear' }
-  | { __kind: 'Set'; fields: readonly [Address] };
+export type RuleSetToggle = { __kind: "None" } | { __kind: "Clear" } | { __kind: "Set"; fields: readonly [Address] };
 
 export type RuleSetToggleArgs = RuleSetToggle;
 
 export function getRuleSetToggleEncoder(): Encoder<RuleSetToggleArgs> {
   return getDiscriminatedUnionEncoder([
-    ['None', getUnitEncoder()],
-    ['Clear', getUnitEncoder()],
-    [
-      'Set',
-      getStructEncoder([['fields', getTupleEncoder([getAddressEncoder()])]]),
-    ],
+    ["None", getUnitEncoder()],
+    ["Clear", getUnitEncoder()],
+    ["Set", getStructEncoder([["fields", getTupleEncoder([getAddressEncoder()])]])],
   ]);
 }
 
 export function getRuleSetToggleDecoder(): Decoder<RuleSetToggle> {
   return getDiscriminatedUnionDecoder([
-    ['None', getUnitDecoder()],
-    ['Clear', getUnitDecoder()],
-    [
-      'Set',
-      getStructDecoder([['fields', getTupleDecoder([getAddressDecoder()])]]),
-    ],
+    ["None", getUnitDecoder()],
+    ["Clear", getUnitDecoder()],
+    ["Set", getStructDecoder([["fields", getTupleDecoder([getAddressDecoder()])]])],
   ]);
 }
 
-export function getRuleSetToggleCodec(): Codec<
-  RuleSetToggleArgs,
-  RuleSetToggle
-> {
+export function getRuleSetToggleCodec(): Codec<RuleSetToggleArgs, RuleSetToggle> {
   return combineCodec(getRuleSetToggleEncoder(), getRuleSetToggleDecoder());
 }
 
 // Data Enum Helpers.
+export function ruleSetToggle(kind: "None"): GetDiscriminatedUnionVariant<RuleSetToggleArgs, "__kind", "None">;
+export function ruleSetToggle(kind: "Clear"): GetDiscriminatedUnionVariant<RuleSetToggleArgs, "__kind", "Clear">;
 export function ruleSetToggle(
-  kind: 'None'
-): GetDiscriminatedUnionVariant<RuleSetToggleArgs, '__kind', 'None'>;
-export function ruleSetToggle(
-  kind: 'Clear'
-): GetDiscriminatedUnionVariant<RuleSetToggleArgs, '__kind', 'Clear'>;
-export function ruleSetToggle(
-  kind: 'Set',
-  data: GetDiscriminatedUnionVariantContent<
-    RuleSetToggleArgs,
-    '__kind',
-    'Set'
-  >['fields']
-): GetDiscriminatedUnionVariant<RuleSetToggleArgs, '__kind', 'Set'>;
-export function ruleSetToggle<K extends RuleSetToggleArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Set",
+  data: GetDiscriminatedUnionVariantContent<RuleSetToggleArgs, "__kind", "Set">["fields"],
+): GetDiscriminatedUnionVariant<RuleSetToggleArgs, "__kind", "Set">;
+export function ruleSetToggle<K extends RuleSetToggleArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isRuleSetToggle<K extends RuleSetToggle['__kind']>(
+export function isRuleSetToggle<K extends RuleSetToggle["__kind"]>(
   kind: K,
-  value: RuleSetToggle
+  value: RuleSetToggle,
 ): value is RuleSetToggle & { __kind: K } {
   return value.__kind === kind;
 }

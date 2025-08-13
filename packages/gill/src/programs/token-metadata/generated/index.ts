@@ -7,6 +7,7 @@
  */
 
 export * from "./accounts";
-export * from "./programs";
+export * from "./errors";
 export * from "./instructions";
+export * from "./programs";
 export * from "./types";

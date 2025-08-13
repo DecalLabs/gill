@@ -6,7 +6,14 @@
  * @see https://github.com/codama-idl/codama
  */
 
-import { combineCodec, getEnumDecoder, getEnumEncoder, type Codec, type Decoder, type Encoder } from "@solana/kit";
+import {
+  combineCodec,
+  getEnumDecoder,
+  getEnumEncoder,
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
+} from "@solana/kit";
 
 export enum TokenStandard {
   NonFungible,
@@ -19,14 +26,14 @@ export enum TokenStandard {
 
 export type TokenStandardArgs = TokenStandard;
 
-export function getTokenStandardEncoder(): Encoder<TokenStandardArgs> {
+export function getTokenStandardEncoder(): FixedSizeEncoder<TokenStandardArgs> {
   return getEnumEncoder(TokenStandard);
 }
 
-export function getTokenStandardDecoder(): Decoder<TokenStandard> {
+export function getTokenStandardDecoder(): FixedSizeDecoder<TokenStandard> {
   return getEnumDecoder(TokenStandard);
 }
 
-export function getTokenStandardCodec(): Codec<TokenStandardArgs, TokenStandard> {
+export function getTokenStandardCodec(): FixedSizeCodec<TokenStandardArgs, TokenStandard> {
   return combineCodec(getTokenStandardEncoder(), getTokenStandardDecoder());
 }

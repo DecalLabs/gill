@@ -23,7 +23,7 @@ import {
   type GetDiscriminatedUnionVariantContent,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getAssetDataDecoder,
   getAssetDataEncoder,
@@ -33,17 +33,17 @@ import {
   type AssetDataArgs,
   type PrintSupply,
   type PrintSupplyArgs,
-} from '.';
+} from ".";
 
 export type CreateArgs = {
-  __kind: 'V1';
+  __kind: "V1";
   assetData: AssetData;
   decimals: Option<number>;
   printSupply: Option<PrintSupply>;
 };
 
 export type CreateArgsArgs = {
-  __kind: 'V1';
+  __kind: "V1";
   assetData: AssetDataArgs;
   decimals: OptionOrNullable<number>;
   printSupply: OptionOrNullable<PrintSupplyArgs>;
@@ -52,11 +52,11 @@ export type CreateArgsArgs = {
 export function getCreateArgsEncoder(): Encoder<CreateArgsArgs> {
   return getDiscriminatedUnionEncoder([
     [
-      'V1',
+      "V1",
       getStructEncoder([
-        ['assetData', getAssetDataEncoder()],
-        ['decimals', getOptionEncoder(getU8Encoder())],
-        ['printSupply', getOptionEncoder(getPrintSupplyEncoder())],
+        ["assetData", getAssetDataEncoder()],
+        ["decimals", getOptionEncoder(getU8Encoder())],
+        ["printSupply", getOptionEncoder(getPrintSupplyEncoder())],
       ]),
     ],
   ]);
@@ -65,11 +65,11 @@ export function getCreateArgsEncoder(): Encoder<CreateArgsArgs> {
 export function getCreateArgsDecoder(): Decoder<CreateArgs> {
   return getDiscriminatedUnionDecoder([
     [
-      'V1',
+      "V1",
       getStructDecoder([
-        ['assetData', getAssetDataDecoder()],
-        ['decimals', getOptionDecoder(getU8Decoder())],
-        ['printSupply', getOptionDecoder(getPrintSupplyDecoder())],
+        ["assetData", getAssetDataDecoder()],
+        ["decimals", getOptionDecoder(getU8Decoder())],
+        ["printSupply", getOptionDecoder(getPrintSupplyDecoder())],
       ]),
     ],
   ]);
@@ -81,21 +81,16 @@ export function getCreateArgsCodec(): Codec<CreateArgsArgs, CreateArgs> {
 
 // Data Enum Helpers.
 export function createArgs(
-  kind: 'V1',
-  data: GetDiscriminatedUnionVariantContent<CreateArgsArgs, '__kind', 'V1'>
-): GetDiscriminatedUnionVariant<CreateArgsArgs, '__kind', 'V1'>;
-export function createArgs<K extends CreateArgsArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "V1",
+  data: GetDiscriminatedUnionVariantContent<CreateArgsArgs, "__kind", "V1">,
+): GetDiscriminatedUnionVariant<CreateArgsArgs, "__kind", "V1">;
+export function createArgs<K extends CreateArgsArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isCreateArgs<K extends CreateArgs['__kind']>(
+export function isCreateArgs<K extends CreateArgs["__kind"]>(
   kind: K,
-  value: CreateArgs
+  value: CreateArgs,
 ): value is CreateArgs & { __kind: K } {
   return value.__kind === kind;
 }

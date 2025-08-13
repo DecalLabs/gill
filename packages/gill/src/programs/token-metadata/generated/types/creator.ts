@@ -17,31 +17,31 @@ import {
   getU8Decoder,
   getU8Encoder,
   type Address,
-  type Codec,
-  type Decoder,
-  type Encoder,
-} from '@solana/kit';
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
+} from "@solana/kit";
 
 export type Creator = { address: Address; verified: boolean; share: number };
 
 export type CreatorArgs = Creator;
 
-export function getCreatorEncoder(): Encoder<CreatorArgs> {
+export function getCreatorEncoder(): FixedSizeEncoder<CreatorArgs> {
   return getStructEncoder([
-    ['address', getAddressEncoder()],
-    ['verified', getBooleanEncoder()],
-    ['share', getU8Encoder()],
+    ["address", getAddressEncoder()],
+    ["verified", getBooleanEncoder()],
+    ["share", getU8Encoder()],
   ]);
 }
 
-export function getCreatorDecoder(): Decoder<Creator> {
+export function getCreatorDecoder(): FixedSizeDecoder<Creator> {
   return getStructDecoder([
-    ['address', getAddressDecoder()],
-    ['verified', getBooleanDecoder()],
-    ['share', getU8Decoder()],
+    ["address", getAddressDecoder()],
+    ["verified", getBooleanDecoder()],
+    ["share", getU8Decoder()],
   ]);
 }
 
-export function getCreatorCodec(): Codec<CreatorArgs, Creator> {
+export function getCreatorCodec(): FixedSizeCodec<CreatorArgs, Creator> {
   return combineCodec(getCreatorEncoder(), getCreatorDecoder());
 }

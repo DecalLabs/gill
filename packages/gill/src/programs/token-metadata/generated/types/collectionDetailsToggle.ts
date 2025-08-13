@@ -21,89 +21,62 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getCollectionDetailsDecoder,
   getCollectionDetailsEncoder,
   type CollectionDetails,
   type CollectionDetailsArgs,
-} from '.';
+} from ".";
 
 export type CollectionDetailsToggle =
-  | { __kind: 'None' }
-  | { __kind: 'Clear' }
-  | { __kind: 'Set'; fields: readonly [CollectionDetails] };
+  | { __kind: "None" }
+  | { __kind: "Clear" }
+  | { __kind: "Set"; fields: readonly [CollectionDetails] };
 
 export type CollectionDetailsToggleArgs =
-  | { __kind: 'None' }
-  | { __kind: 'Clear' }
-  | { __kind: 'Set'; fields: readonly [CollectionDetailsArgs] };
+  | { __kind: "None" }
+  | { __kind: "Clear" }
+  | { __kind: "Set"; fields: readonly [CollectionDetailsArgs] };
 
 export function getCollectionDetailsToggleEncoder(): Encoder<CollectionDetailsToggleArgs> {
   return getDiscriminatedUnionEncoder([
-    ['None', getUnitEncoder()],
-    ['Clear', getUnitEncoder()],
-    [
-      'Set',
-      getStructEncoder([
-        ['fields', getTupleEncoder([getCollectionDetailsEncoder()])],
-      ]),
-    ],
+    ["None", getUnitEncoder()],
+    ["Clear", getUnitEncoder()],
+    ["Set", getStructEncoder([["fields", getTupleEncoder([getCollectionDetailsEncoder()])]])],
   ]);
 }
 
 export function getCollectionDetailsToggleDecoder(): Decoder<CollectionDetailsToggle> {
   return getDiscriminatedUnionDecoder([
-    ['None', getUnitDecoder()],
-    ['Clear', getUnitDecoder()],
-    [
-      'Set',
-      getStructDecoder([
-        ['fields', getTupleDecoder([getCollectionDetailsDecoder()])],
-      ]),
-    ],
+    ["None", getUnitDecoder()],
+    ["Clear", getUnitDecoder()],
+    ["Set", getStructDecoder([["fields", getTupleDecoder([getCollectionDetailsDecoder()])]])],
   ]);
 }
 
-export function getCollectionDetailsToggleCodec(): Codec<
-  CollectionDetailsToggleArgs,
-  CollectionDetailsToggle
-> {
-  return combineCodec(
-    getCollectionDetailsToggleEncoder(),
-    getCollectionDetailsToggleDecoder()
-  );
+export function getCollectionDetailsToggleCodec(): Codec<CollectionDetailsToggleArgs, CollectionDetailsToggle> {
+  return combineCodec(getCollectionDetailsToggleEncoder(), getCollectionDetailsToggleDecoder());
 }
 
 // Data Enum Helpers.
 export function collectionDetailsToggle(
-  kind: 'None'
-): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, '__kind', 'None'>;
+  kind: "None",
+): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, "__kind", "None">;
 export function collectionDetailsToggle(
-  kind: 'Clear'
-): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, '__kind', 'Clear'>;
+  kind: "Clear",
+): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, "__kind", "Clear">;
 export function collectionDetailsToggle(
-  kind: 'Set',
-  data: GetDiscriminatedUnionVariantContent<
-    CollectionDetailsToggleArgs,
-    '__kind',
-    'Set'
-  >['fields']
-): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, '__kind', 'Set'>;
-export function collectionDetailsToggle<
-  K extends CollectionDetailsToggleArgs['__kind'],
-  Data,
->(kind: K, data?: Data) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Set",
+  data: GetDiscriminatedUnionVariantContent<CollectionDetailsToggleArgs, "__kind", "Set">["fields"],
+): GetDiscriminatedUnionVariant<CollectionDetailsToggleArgs, "__kind", "Set">;
+export function collectionDetailsToggle<K extends CollectionDetailsToggleArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isCollectionDetailsToggle<
-  K extends CollectionDetailsToggle['__kind'],
->(
+export function isCollectionDetailsToggle<K extends CollectionDetailsToggle["__kind"]>(
   kind: K,
-  value: CollectionDetailsToggle
+  value: CollectionDetailsToggle,
 ): value is CollectionDetailsToggle & { __kind: K } {
   return value.__kind === kind;
 }

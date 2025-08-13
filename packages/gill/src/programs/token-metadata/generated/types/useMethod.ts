@@ -10,10 +10,10 @@ import {
   combineCodec,
   getEnumDecoder,
   getEnumEncoder,
-  type Codec,
-  type Decoder,
-  type Encoder,
-} from '@solana/kit';
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
+} from "@solana/kit";
 
 export enum UseMethod {
   Burn,
@@ -23,14 +23,14 @@ export enum UseMethod {
 
 export type UseMethodArgs = UseMethod;
 
-export function getUseMethodEncoder(): Encoder<UseMethodArgs> {
+export function getUseMethodEncoder(): FixedSizeEncoder<UseMethodArgs> {
   return getEnumEncoder(UseMethod);
 }
 
-export function getUseMethodDecoder(): Decoder<UseMethod> {
+export function getUseMethodDecoder(): FixedSizeDecoder<UseMethod> {
   return getEnumDecoder(UseMethod);
 }
 
-export function getUseMethodCodec(): Codec<UseMethodArgs, UseMethod> {
+export function getUseMethodCodec(): FixedSizeCodec<UseMethodArgs, UseMethod> {
   return combineCodec(getUseMethodEncoder(), getUseMethodDecoder());
 }

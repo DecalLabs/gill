@@ -24,7 +24,7 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getProofInfoDecoder,
   getProofInfoEncoder,
@@ -34,59 +34,35 @@ import {
   type ProofInfoArgs,
   type SeedsVec,
   type SeedsVecArgs,
-} from '.';
+} from ".";
 
 export type PayloadType =
-  | { __kind: 'Pubkey'; fields: readonly [Address] }
-  | { __kind: 'Seeds'; fields: readonly [SeedsVec] }
-  | { __kind: 'MerkleProof'; fields: readonly [ProofInfo] }
-  | { __kind: 'Number'; fields: readonly [bigint] };
+  | { __kind: "Pubkey"; fields: readonly [Address] }
+  | { __kind: "Seeds"; fields: readonly [SeedsVec] }
+  | { __kind: "MerkleProof"; fields: readonly [ProofInfo] }
+  | { __kind: "Number"; fields: readonly [bigint] };
 
 export type PayloadTypeArgs =
-  | { __kind: 'Pubkey'; fields: readonly [Address] }
-  | { __kind: 'Seeds'; fields: readonly [SeedsVecArgs] }
-  | { __kind: 'MerkleProof'; fields: readonly [ProofInfoArgs] }
-  | { __kind: 'Number'; fields: readonly [number | bigint] };
+  | { __kind: "Pubkey"; fields: readonly [Address] }
+  | { __kind: "Seeds"; fields: readonly [SeedsVecArgs] }
+  | { __kind: "MerkleProof"; fields: readonly [ProofInfoArgs] }
+  | { __kind: "Number"; fields: readonly [number | bigint] };
 
 export function getPayloadTypeEncoder(): Encoder<PayloadTypeArgs> {
   return getDiscriminatedUnionEncoder([
-    [
-      'Pubkey',
-      getStructEncoder([['fields', getTupleEncoder([getAddressEncoder()])]]),
-    ],
-    [
-      'Seeds',
-      getStructEncoder([['fields', getTupleEncoder([getSeedsVecEncoder()])]]),
-    ],
-    [
-      'MerkleProof',
-      getStructEncoder([['fields', getTupleEncoder([getProofInfoEncoder()])]]),
-    ],
-    [
-      'Number',
-      getStructEncoder([['fields', getTupleEncoder([getU64Encoder()])]]),
-    ],
+    ["Pubkey", getStructEncoder([["fields", getTupleEncoder([getAddressEncoder()])]])],
+    ["Seeds", getStructEncoder([["fields", getTupleEncoder([getSeedsVecEncoder()])]])],
+    ["MerkleProof", getStructEncoder([["fields", getTupleEncoder([getProofInfoEncoder()])]])],
+    ["Number", getStructEncoder([["fields", getTupleEncoder([getU64Encoder()])]])],
   ]);
 }
 
 export function getPayloadTypeDecoder(): Decoder<PayloadType> {
   return getDiscriminatedUnionDecoder([
-    [
-      'Pubkey',
-      getStructDecoder([['fields', getTupleDecoder([getAddressDecoder()])]]),
-    ],
-    [
-      'Seeds',
-      getStructDecoder([['fields', getTupleDecoder([getSeedsVecDecoder()])]]),
-    ],
-    [
-      'MerkleProof',
-      getStructDecoder([['fields', getTupleDecoder([getProofInfoDecoder()])]]),
-    ],
-    [
-      'Number',
-      getStructDecoder([['fields', getTupleDecoder([getU64Decoder()])]]),
-    ],
+    ["Pubkey", getStructDecoder([["fields", getTupleDecoder([getAddressDecoder()])]])],
+    ["Seeds", getStructDecoder([["fields", getTupleDecoder([getSeedsVecDecoder()])]])],
+    ["MerkleProof", getStructDecoder([["fields", getTupleDecoder([getProofInfoDecoder()])]])],
+    ["Number", getStructDecoder([["fields", getTupleDecoder([getU64Decoder()])]])],
   ]);
 }
 
@@ -96,49 +72,28 @@ export function getPayloadTypeCodec(): Codec<PayloadTypeArgs, PayloadType> {
 
 // Data Enum Helpers.
 export function payloadType(
-  kind: 'Pubkey',
-  data: GetDiscriminatedUnionVariantContent<
-    PayloadTypeArgs,
-    '__kind',
-    'Pubkey'
-  >['fields']
-): GetDiscriminatedUnionVariant<PayloadTypeArgs, '__kind', 'Pubkey'>;
+  kind: "Pubkey",
+  data: GetDiscriminatedUnionVariantContent<PayloadTypeArgs, "__kind", "Pubkey">["fields"],
+): GetDiscriminatedUnionVariant<PayloadTypeArgs, "__kind", "Pubkey">;
 export function payloadType(
-  kind: 'Seeds',
-  data: GetDiscriminatedUnionVariantContent<
-    PayloadTypeArgs,
-    '__kind',
-    'Seeds'
-  >['fields']
-): GetDiscriminatedUnionVariant<PayloadTypeArgs, '__kind', 'Seeds'>;
+  kind: "Seeds",
+  data: GetDiscriminatedUnionVariantContent<PayloadTypeArgs, "__kind", "Seeds">["fields"],
+): GetDiscriminatedUnionVariant<PayloadTypeArgs, "__kind", "Seeds">;
 export function payloadType(
-  kind: 'MerkleProof',
-  data: GetDiscriminatedUnionVariantContent<
-    PayloadTypeArgs,
-    '__kind',
-    'MerkleProof'
-  >['fields']
-): GetDiscriminatedUnionVariant<PayloadTypeArgs, '__kind', 'MerkleProof'>;
+  kind: "MerkleProof",
+  data: GetDiscriminatedUnionVariantContent<PayloadTypeArgs, "__kind", "MerkleProof">["fields"],
+): GetDiscriminatedUnionVariant<PayloadTypeArgs, "__kind", "MerkleProof">;
 export function payloadType(
-  kind: 'Number',
-  data: GetDiscriminatedUnionVariantContent<
-    PayloadTypeArgs,
-    '__kind',
-    'Number'
-  >['fields']
-): GetDiscriminatedUnionVariant<PayloadTypeArgs, '__kind', 'Number'>;
-export function payloadType<K extends PayloadTypeArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Number",
+  data: GetDiscriminatedUnionVariantContent<PayloadTypeArgs, "__kind", "Number">["fields"],
+): GetDiscriminatedUnionVariant<PayloadTypeArgs, "__kind", "Number">;
+export function payloadType<K extends PayloadTypeArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isPayloadType<K extends PayloadType['__kind']>(
+export function isPayloadType<K extends PayloadType["__kind"]>(
   kind: K,
-  value: PayloadType
+  value: PayloadType,
 ): value is PayloadType & { __kind: K } {
   return value.__kind === kind;
 }

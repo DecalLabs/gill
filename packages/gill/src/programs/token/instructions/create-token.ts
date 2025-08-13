@@ -1,5 +1,5 @@
 import { getCreateAccountInstruction } from "@solana-program/system";
-import type { Address, IInstruction, KeyPairSigner, TransactionSigner } from "@solana/kit";
+import type { Address, Instruction, KeyPairSigner, TransactionSigner } from "@solana/kit";
 import { checkedAddress, checkedTransactionSigner, getMinimumBalanceForRentExemption } from "../../../core";
 import { getCreateMetadataAccountV3Instruction, getTokenMetadataAddress } from "../../token-metadata";
 
@@ -75,7 +75,7 @@ export type GetCreateTokenInstructionsArgs = TokenInstructionBase<KeyPairSigner>
 /**
  * Create the instructions required to initialize a new token's mint
  */
-export function getCreateTokenInstructions(args: GetCreateTokenInstructionsArgs): IInstruction[] {
+export function getCreateTokenInstructions(args: GetCreateTokenInstructionsArgs): Instruction[] {
   args.tokenProgram = checkedTokenProgramAddress(args.tokenProgram);
   args.feePayer = checkedTransactionSigner(args.feePayer);
 

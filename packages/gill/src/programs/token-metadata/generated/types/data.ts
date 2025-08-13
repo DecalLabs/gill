@@ -27,13 +27,8 @@ import {
   type Encoder,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
-import {
-  getCreatorDecoder,
-  getCreatorEncoder,
-  type Creator,
-  type CreatorArgs,
-} from '.';
+} from "@solana/kit";
+import { getCreatorDecoder, getCreatorEncoder, type Creator, type CreatorArgs } from ".";
 
 export type Data = {
   name: string;
@@ -53,21 +48,21 @@ export type DataArgs = {
 
 export function getDataEncoder(): Encoder<DataArgs> {
   return getStructEncoder([
-    ['name', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['symbol', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['uri', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['sellerFeeBasisPoints', getU16Encoder()],
-    ['creators', getOptionEncoder(getArrayEncoder(getCreatorEncoder()))],
+    ["name", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["symbol", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["uri", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["sellerFeeBasisPoints", getU16Encoder()],
+    ["creators", getOptionEncoder(getArrayEncoder(getCreatorEncoder()))],
   ]);
 }
 
 export function getDataDecoder(): Decoder<Data> {
   return getStructDecoder([
-    ['name', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['symbol', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['uri', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['sellerFeeBasisPoints', getU16Decoder()],
-    ['creators', getOptionDecoder(getArrayDecoder(getCreatorDecoder()))],
+    ["name", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["symbol", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["uri", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["sellerFeeBasisPoints", getU16Decoder()],
+    ["creators", getOptionDecoder(getArrayDecoder(getCreatorDecoder()))],
   ]);
 }
 

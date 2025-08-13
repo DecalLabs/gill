@@ -15,10 +15,10 @@ import {
   getU64Decoder,
   getU64Encoder,
   type Address,
-  type Codec,
-  type Decoder,
-  type Encoder,
-} from '@solana/kit';
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
+} from "@solana/kit";
 
 export type Reservation = {
   address: Address;
@@ -32,22 +32,22 @@ export type ReservationArgs = {
   totalSpots: number | bigint;
 };
 
-export function getReservationEncoder(): Encoder<ReservationArgs> {
+export function getReservationEncoder(): FixedSizeEncoder<ReservationArgs> {
   return getStructEncoder([
-    ['address', getAddressEncoder()],
-    ['spotsRemaining', getU64Encoder()],
-    ['totalSpots', getU64Encoder()],
+    ["address", getAddressEncoder()],
+    ["spotsRemaining", getU64Encoder()],
+    ["totalSpots", getU64Encoder()],
   ]);
 }
 
-export function getReservationDecoder(): Decoder<Reservation> {
+export function getReservationDecoder(): FixedSizeDecoder<Reservation> {
   return getStructDecoder([
-    ['address', getAddressDecoder()],
-    ['spotsRemaining', getU64Decoder()],
-    ['totalSpots', getU64Decoder()],
+    ["address", getAddressDecoder()],
+    ["spotsRemaining", getU64Decoder()],
+    ["totalSpots", getU64Decoder()],
   ]);
 }
 
-export function getReservationCodec(): Codec<ReservationArgs, Reservation> {
+export function getReservationCodec(): FixedSizeCodec<ReservationArgs, Reservation> {
   return combineCodec(getReservationEncoder(), getReservationDecoder());
 }

@@ -21,13 +21,8 @@ import {
   type Codec,
   type Decoder,
   type Encoder,
-} from '@solana/kit';
-import {
-  getPayloadTypeDecoder,
-  getPayloadTypeEncoder,
-  type PayloadType,
-  type PayloadTypeArgs,
-} from '.';
+} from "@solana/kit";
+import { getPayloadTypeDecoder, getPayloadTypeEncoder, type PayloadType, type PayloadTypeArgs } from ".";
 
 export type Payload = { map: Map<string, PayloadType> };
 
@@ -35,25 +30,13 @@ export type PayloadArgs = { map: Map<string, PayloadTypeArgs> };
 
 export function getPayloadEncoder(): Encoder<PayloadArgs> {
   return getStructEncoder([
-    [
-      'map',
-      getMapEncoder(
-        addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder()),
-        getPayloadTypeEncoder()
-      ),
-    ],
+    ["map", getMapEncoder(addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder()), getPayloadTypeEncoder())],
   ]);
 }
 
 export function getPayloadDecoder(): Decoder<Payload> {
   return getStructDecoder([
-    [
-      'map',
-      getMapDecoder(
-        addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder()),
-        getPayloadTypeDecoder()
-      ),
-    ],
+    ["map", getMapDecoder(addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder()), getPayloadTypeDecoder())],
   ]);
 }
 

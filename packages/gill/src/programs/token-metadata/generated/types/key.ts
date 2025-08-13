@@ -10,10 +10,10 @@ import {
   combineCodec,
   getEnumDecoder,
   getEnumEncoder,
-  type Codec,
-  type Decoder,
-  type Encoder,
-} from '@solana/kit';
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
+} from "@solana/kit";
 
 export enum Key {
   Uninitialized,
@@ -35,14 +35,14 @@ export enum Key {
 
 export type KeyArgs = Key;
 
-export function getKeyEncoder(): Encoder<KeyArgs> {
+export function getKeyEncoder(): FixedSizeEncoder<KeyArgs> {
   return getEnumEncoder(Key);
 }
 
-export function getKeyDecoder(): Decoder<Key> {
+export function getKeyDecoder(): FixedSizeDecoder<Key> {
   return getEnumDecoder(Key);
 }
 
-export function getKeyCodec(): Codec<KeyArgs, Key> {
+export function getKeyCodec(): FixedSizeCodec<KeyArgs, Key> {
   return combineCodec(getKeyEncoder(), getKeyDecoder());
 }

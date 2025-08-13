@@ -6,7 +6,67 @@
  * @see https://github.com/codama-idl/codama
  */
 
-import { type Address } from "@solana/kit";
+import { containsBytes, getU8Encoder, type Address, type ReadonlyUint8Array } from "@solana/kit";
+import {
+  type ParsedApproveCollectionAuthorityInstruction,
+  type ParsedApproveUseAuthorityInstruction,
+  type ParsedBubblegumSetCollectionSizeInstruction,
+  type ParsedBurnEditionNftInstruction,
+  type ParsedBurnInstruction,
+  type ParsedBurnNftInstruction,
+  type ParsedCloseAccountsInstruction,
+  type ParsedCloseEscrowAccountInstruction,
+  type ParsedCollectInstruction,
+  type ParsedConvertMasterEditionV1ToV2Instruction,
+  type ParsedCreateEscrowAccountInstruction,
+  type ParsedCreateInstruction,
+  type ParsedCreateMasterEditionInstruction,
+  type ParsedCreateMasterEditionV3Instruction,
+  type ParsedCreateMetadataAccountInstruction,
+  type ParsedCreateMetadataAccountV2Instruction,
+  type ParsedCreateMetadataAccountV3Instruction,
+  type ParsedDelegateInstruction,
+  type ParsedDeprecatedCreateMasterEditionInstruction,
+  type ParsedDeprecatedCreateReservationListInstruction,
+  type ParsedDeprecatedMintNewEditionFromMasterEditionViaPrintingTokenInstruction,
+  type ParsedDeprecatedMintPrintingTokensInstruction,
+  type ParsedDeprecatedMintPrintingTokensViaTokenInstruction,
+  type ParsedDeprecatedSetReservationListInstruction,
+  type ParsedFreezeDelegatedAccountInstruction,
+  type ParsedLockInstruction,
+  type ParsedMigrateInstruction,
+  type ParsedMintInstruction,
+  type ParsedMintNewEditionFromMasterEditionViaTokenInstruction,
+  type ParsedMintNewEditionFromMasterEditionViaVaultProxyInstruction,
+  type ParsedPrintInstruction,
+  type ParsedPuffMetadataInstruction,
+  type ParsedRemoveCreatorVerificationInstruction,
+  type ParsedResizeInstruction,
+  type ParsedRevokeCollectionAuthorityInstruction,
+  type ParsedRevokeInstruction,
+  type ParsedRevokeUseAuthorityInstruction,
+  type ParsedSetAndVerifyCollectionInstruction,
+  type ParsedSetAndVerifySizedCollectionItemInstruction,
+  type ParsedSetCollectionSizeInstruction,
+  type ParsedSetTokenStandardInstruction,
+  type ParsedSignMetadataInstruction,
+  type ParsedThawDelegatedAccountInstruction,
+  type ParsedTransferInstruction,
+  type ParsedTransferOutOfEscrowInstruction,
+  type ParsedUnlockInstruction,
+  type ParsedUnverifyCollectionInstruction,
+  type ParsedUnverifyInstruction,
+  type ParsedUnverifySizedCollectionItemInstruction,
+  type ParsedUpdateInstruction,
+  type ParsedUpdateMetadataAccountInstruction,
+  type ParsedUpdateMetadataAccountV2Instruction,
+  type ParsedUpdatePrimarySaleHappenedViaTokenInstruction,
+  type ParsedUseInstruction,
+  type ParsedUtilizeInstruction,
+  type ParsedVerifyCollectionInstruction,
+  type ParsedVerifyInstruction,
+  type ParsedVerifySizedCollectionItemInstruction,
+} from "../instructions";
 
 export const TOKEN_METADATA_PROGRAM_ADDRESS =
   "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s" as Address<"metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s">;
@@ -88,3 +148,360 @@ export enum TokenMetadataInstruction {
   Resize,
   CloseAccounts,
 }
+
+export function identifyTokenMetadataInstruction(
+  instruction: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): TokenMetadataInstruction {
+  const data = "data" in instruction ? instruction.data : instruction;
+  if (containsBytes(data, getU8Encoder().encode(0), 0)) {
+    return TokenMetadataInstruction.CreateMetadataAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(1), 0)) {
+    return TokenMetadataInstruction.UpdateMetadataAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(2), 0)) {
+    return TokenMetadataInstruction.DeprecatedCreateMasterEdition;
+  }
+  if (containsBytes(data, getU8Encoder().encode(3), 0)) {
+    return TokenMetadataInstruction.DeprecatedMintNewEditionFromMasterEditionViaPrintingToken;
+  }
+  if (containsBytes(data, getU8Encoder().encode(4), 0)) {
+    return TokenMetadataInstruction.UpdatePrimarySaleHappenedViaToken;
+  }
+  if (containsBytes(data, getU8Encoder().encode(5), 0)) {
+    return TokenMetadataInstruction.DeprecatedSetReservationList;
+  }
+  if (containsBytes(data, getU8Encoder().encode(6), 0)) {
+    return TokenMetadataInstruction.DeprecatedCreateReservationList;
+  }
+  if (containsBytes(data, getU8Encoder().encode(7), 0)) {
+    return TokenMetadataInstruction.SignMetadata;
+  }
+  if (containsBytes(data, getU8Encoder().encode(8), 0)) {
+    return TokenMetadataInstruction.DeprecatedMintPrintingTokensViaToken;
+  }
+  if (containsBytes(data, getU8Encoder().encode(9), 0)) {
+    return TokenMetadataInstruction.DeprecatedMintPrintingTokens;
+  }
+  if (containsBytes(data, getU8Encoder().encode(10), 0)) {
+    return TokenMetadataInstruction.CreateMasterEdition;
+  }
+  if (containsBytes(data, getU8Encoder().encode(11), 0)) {
+    return TokenMetadataInstruction.MintNewEditionFromMasterEditionViaToken;
+  }
+  if (containsBytes(data, getU8Encoder().encode(12), 0)) {
+    return TokenMetadataInstruction.ConvertMasterEditionV1ToV2;
+  }
+  if (containsBytes(data, getU8Encoder().encode(13), 0)) {
+    return TokenMetadataInstruction.MintNewEditionFromMasterEditionViaVaultProxy;
+  }
+  if (containsBytes(data, getU8Encoder().encode(14), 0)) {
+    return TokenMetadataInstruction.PuffMetadata;
+  }
+  if (containsBytes(data, getU8Encoder().encode(15), 0)) {
+    return TokenMetadataInstruction.UpdateMetadataAccountV2;
+  }
+  if (containsBytes(data, getU8Encoder().encode(16), 0)) {
+    return TokenMetadataInstruction.CreateMetadataAccountV2;
+  }
+  if (containsBytes(data, getU8Encoder().encode(17), 0)) {
+    return TokenMetadataInstruction.CreateMasterEditionV3;
+  }
+  if (containsBytes(data, getU8Encoder().encode(18), 0)) {
+    return TokenMetadataInstruction.VerifyCollection;
+  }
+  if (containsBytes(data, getU8Encoder().encode(19), 0)) {
+    return TokenMetadataInstruction.Utilize;
+  }
+  if (containsBytes(data, getU8Encoder().encode(20), 0)) {
+    return TokenMetadataInstruction.ApproveUseAuthority;
+  }
+  if (containsBytes(data, getU8Encoder().encode(21), 0)) {
+    return TokenMetadataInstruction.RevokeUseAuthority;
+  }
+  if (containsBytes(data, getU8Encoder().encode(22), 0)) {
+    return TokenMetadataInstruction.UnverifyCollection;
+  }
+  if (containsBytes(data, getU8Encoder().encode(23), 0)) {
+    return TokenMetadataInstruction.ApproveCollectionAuthority;
+  }
+  if (containsBytes(data, getU8Encoder().encode(24), 0)) {
+    return TokenMetadataInstruction.RevokeCollectionAuthority;
+  }
+  if (containsBytes(data, getU8Encoder().encode(25), 0)) {
+    return TokenMetadataInstruction.SetAndVerifyCollection;
+  }
+  if (containsBytes(data, getU8Encoder().encode(26), 0)) {
+    return TokenMetadataInstruction.FreezeDelegatedAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(27), 0)) {
+    return TokenMetadataInstruction.ThawDelegatedAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(28), 0)) {
+    return TokenMetadataInstruction.RemoveCreatorVerification;
+  }
+  if (containsBytes(data, getU8Encoder().encode(29), 0)) {
+    return TokenMetadataInstruction.BurnNft;
+  }
+  if (containsBytes(data, getU8Encoder().encode(30), 0)) {
+    return TokenMetadataInstruction.VerifySizedCollectionItem;
+  }
+  if (containsBytes(data, getU8Encoder().encode(31), 0)) {
+    return TokenMetadataInstruction.UnverifySizedCollectionItem;
+  }
+  if (containsBytes(data, getU8Encoder().encode(32), 0)) {
+    return TokenMetadataInstruction.SetAndVerifySizedCollectionItem;
+  }
+  if (containsBytes(data, getU8Encoder().encode(33), 0)) {
+    return TokenMetadataInstruction.CreateMetadataAccountV3;
+  }
+  if (containsBytes(data, getU8Encoder().encode(34), 0)) {
+    return TokenMetadataInstruction.SetCollectionSize;
+  }
+  if (containsBytes(data, getU8Encoder().encode(35), 0)) {
+    return TokenMetadataInstruction.SetTokenStandard;
+  }
+  if (containsBytes(data, getU8Encoder().encode(36), 0)) {
+    return TokenMetadataInstruction.BubblegumSetCollectionSize;
+  }
+  if (containsBytes(data, getU8Encoder().encode(37), 0)) {
+    return TokenMetadataInstruction.BurnEditionNft;
+  }
+  if (containsBytes(data, getU8Encoder().encode(38), 0)) {
+    return TokenMetadataInstruction.CreateEscrowAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(39), 0)) {
+    return TokenMetadataInstruction.CloseEscrowAccount;
+  }
+  if (containsBytes(data, getU8Encoder().encode(40), 0)) {
+    return TokenMetadataInstruction.TransferOutOfEscrow;
+  }
+  if (containsBytes(data, getU8Encoder().encode(41), 0)) {
+    return TokenMetadataInstruction.Burn;
+  }
+  if (containsBytes(data, getU8Encoder().encode(42), 0)) {
+    return TokenMetadataInstruction.Create;
+  }
+  if (containsBytes(data, getU8Encoder().encode(43), 0)) {
+    return TokenMetadataInstruction.Mint;
+  }
+  if (containsBytes(data, getU8Encoder().encode(44), 0)) {
+    return TokenMetadataInstruction.Delegate;
+  }
+  if (containsBytes(data, getU8Encoder().encode(45), 0)) {
+    return TokenMetadataInstruction.Revoke;
+  }
+  if (containsBytes(data, getU8Encoder().encode(46), 0)) {
+    return TokenMetadataInstruction.Lock;
+  }
+  if (containsBytes(data, getU8Encoder().encode(47), 0)) {
+    return TokenMetadataInstruction.Unlock;
+  }
+  if (containsBytes(data, getU8Encoder().encode(48), 0)) {
+    return TokenMetadataInstruction.Migrate;
+  }
+  if (containsBytes(data, getU8Encoder().encode(49), 0)) {
+    return TokenMetadataInstruction.Transfer;
+  }
+  if (containsBytes(data, getU8Encoder().encode(50), 0)) {
+    return TokenMetadataInstruction.Update;
+  }
+  if (containsBytes(data, getU8Encoder().encode(51), 0)) {
+    return TokenMetadataInstruction.Use;
+  }
+  if (containsBytes(data, getU8Encoder().encode(52), 0)) {
+    return TokenMetadataInstruction.Verify;
+  }
+  if (containsBytes(data, getU8Encoder().encode(53), 0)) {
+    return TokenMetadataInstruction.Unverify;
+  }
+  if (containsBytes(data, getU8Encoder().encode(54), 0)) {
+    return TokenMetadataInstruction.Collect;
+  }
+  if (containsBytes(data, getU8Encoder().encode(55), 0)) {
+    return TokenMetadataInstruction.Print;
+  }
+  if (containsBytes(data, getU8Encoder().encode(56), 0)) {
+    return TokenMetadataInstruction.Resize;
+  }
+  if (containsBytes(data, getU8Encoder().encode(57), 0)) {
+    return TokenMetadataInstruction.CloseAccounts;
+  }
+  throw new Error("The provided instruction could not be identified as a tokenMetadata instruction.");
+}
+
+export type ParsedTokenMetadataInstruction<TProgram extends string = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"> =
+  | ({
+      instructionType: TokenMetadataInstruction.CreateMetadataAccount;
+    } & ParsedCreateMetadataAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.UpdateMetadataAccount;
+    } & ParsedUpdateMetadataAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedCreateMasterEdition;
+    } & ParsedDeprecatedCreateMasterEditionInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedMintNewEditionFromMasterEditionViaPrintingToken;
+    } & ParsedDeprecatedMintNewEditionFromMasterEditionViaPrintingTokenInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.UpdatePrimarySaleHappenedViaToken;
+    } & ParsedUpdatePrimarySaleHappenedViaTokenInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedSetReservationList;
+    } & ParsedDeprecatedSetReservationListInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedCreateReservationList;
+    } & ParsedDeprecatedCreateReservationListInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.SignMetadata;
+    } & ParsedSignMetadataInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedMintPrintingTokensViaToken;
+    } & ParsedDeprecatedMintPrintingTokensViaTokenInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.DeprecatedMintPrintingTokens;
+    } & ParsedDeprecatedMintPrintingTokensInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CreateMasterEdition;
+    } & ParsedCreateMasterEditionInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.MintNewEditionFromMasterEditionViaToken;
+    } & ParsedMintNewEditionFromMasterEditionViaTokenInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.ConvertMasterEditionV1ToV2;
+    } & ParsedConvertMasterEditionV1ToV2Instruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.MintNewEditionFromMasterEditionViaVaultProxy;
+    } & ParsedMintNewEditionFromMasterEditionViaVaultProxyInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.PuffMetadata;
+    } & ParsedPuffMetadataInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.UpdateMetadataAccountV2;
+    } & ParsedUpdateMetadataAccountV2Instruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CreateMetadataAccountV2;
+    } & ParsedCreateMetadataAccountV2Instruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CreateMasterEditionV3;
+    } & ParsedCreateMasterEditionV3Instruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.VerifyCollection;
+    } & ParsedVerifyCollectionInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Utilize;
+    } & ParsedUtilizeInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.ApproveUseAuthority;
+    } & ParsedApproveUseAuthorityInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.RevokeUseAuthority;
+    } & ParsedRevokeUseAuthorityInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.UnverifyCollection;
+    } & ParsedUnverifyCollectionInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.ApproveCollectionAuthority;
+    } & ParsedApproveCollectionAuthorityInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.RevokeCollectionAuthority;
+    } & ParsedRevokeCollectionAuthorityInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.SetAndVerifyCollection;
+    } & ParsedSetAndVerifyCollectionInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.FreezeDelegatedAccount;
+    } & ParsedFreezeDelegatedAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.ThawDelegatedAccount;
+    } & ParsedThawDelegatedAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.RemoveCreatorVerification;
+    } & ParsedRemoveCreatorVerificationInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.BurnNft;
+    } & ParsedBurnNftInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.VerifySizedCollectionItem;
+    } & ParsedVerifySizedCollectionItemInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.UnverifySizedCollectionItem;
+    } & ParsedUnverifySizedCollectionItemInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.SetAndVerifySizedCollectionItem;
+    } & ParsedSetAndVerifySizedCollectionItemInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CreateMetadataAccountV3;
+    } & ParsedCreateMetadataAccountV3Instruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.SetCollectionSize;
+    } & ParsedSetCollectionSizeInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.SetTokenStandard;
+    } & ParsedSetTokenStandardInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.BubblegumSetCollectionSize;
+    } & ParsedBubblegumSetCollectionSizeInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.BurnEditionNft;
+    } & ParsedBurnEditionNftInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CreateEscrowAccount;
+    } & ParsedCreateEscrowAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CloseEscrowAccount;
+    } & ParsedCloseEscrowAccountInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.TransferOutOfEscrow;
+    } & ParsedTransferOutOfEscrowInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Burn;
+    } & ParsedBurnInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Create;
+    } & ParsedCreateInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Mint;
+    } & ParsedMintInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Delegate;
+    } & ParsedDelegateInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Revoke;
+    } & ParsedRevokeInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Lock;
+    } & ParsedLockInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Unlock;
+    } & ParsedUnlockInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Migrate;
+    } & ParsedMigrateInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Transfer;
+    } & ParsedTransferInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Update;
+    } & ParsedUpdateInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Use;
+    } & ParsedUseInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Verify;
+    } & ParsedVerifyInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Unverify;
+    } & ParsedUnverifyInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Collect;
+    } & ParsedCollectInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Print;
+    } & ParsedPrintInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.Resize;
+    } & ParsedResizeInstruction<TProgram>)
+  | ({
+      instructionType: TokenMetadataInstruction.CloseAccounts;
+    } & ParsedCloseAccountsInstruction<TProgram>);

@@ -6,4 +6,17 @@
  * @see https://github.com/codama-idl/codama
  */
 
+export * from "./collectionAuthorityRecord";
+export * from "./edition";
+export * from "./editionMarker";
+export * from "./editionMarkerV2";
+export * from "./holderDelegateRecord";
+export * from "./masterEditionV1";
+export * from "./masterEditionV2";
 export * from "./metadata";
+export * from "./metadataDelegateRecord";
+export * from "./reservationListV1";
+export * from "./reservationListV2";
+export * from "./tokenOwnedEscrow";
+export * from "./tokenRecord";
+export * from "./useAuthorityRecord";

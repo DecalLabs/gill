@@ -23,37 +23,31 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
+} from "@solana/kit";
 
 export type PrintSupply =
-  | { __kind: 'Zero' }
-  | { __kind: 'Limited'; fields: readonly [bigint] }
-  | { __kind: 'Unlimited' };
+  | { __kind: "Zero" }
+  | { __kind: "Limited"; fields: readonly [bigint] }
+  | { __kind: "Unlimited" };
 
 export type PrintSupplyArgs =
-  | { __kind: 'Zero' }
-  | { __kind: 'Limited'; fields: readonly [number | bigint] }
-  | { __kind: 'Unlimited' };
+  | { __kind: "Zero" }
+  | { __kind: "Limited"; fields: readonly [number | bigint] }
+  | { __kind: "Unlimited" };
 
 export function getPrintSupplyEncoder(): Encoder<PrintSupplyArgs> {
   return getDiscriminatedUnionEncoder([
-    ['Zero', getUnitEncoder()],
-    [
-      'Limited',
-      getStructEncoder([['fields', getTupleEncoder([getU64Encoder()])]]),
-    ],
-    ['Unlimited', getUnitEncoder()],
+    ["Zero", getUnitEncoder()],
+    ["Limited", getStructEncoder([["fields", getTupleEncoder([getU64Encoder()])]])],
+    ["Unlimited", getUnitEncoder()],
   ]);
 }
 
 export function getPrintSupplyDecoder(): Decoder<PrintSupply> {
   return getDiscriminatedUnionDecoder([
-    ['Zero', getUnitDecoder()],
-    [
-      'Limited',
-      getStructDecoder([['fields', getTupleDecoder([getU64Decoder()])]]),
-    ],
-    ['Unlimited', getUnitDecoder()],
+    ["Zero", getUnitDecoder()],
+    ["Limited", getStructDecoder([["fields", getTupleDecoder([getU64Decoder()])]])],
+    ["Unlimited", getUnitDecoder()],
   ]);
 }
 
@@ -62,32 +56,19 @@ export function getPrintSupplyCodec(): Codec<PrintSupplyArgs, PrintSupply> {
 }
 
 // Data Enum Helpers.
+export function printSupply(kind: "Zero"): GetDiscriminatedUnionVariant<PrintSupplyArgs, "__kind", "Zero">;
 export function printSupply(
-  kind: 'Zero'
-): GetDiscriminatedUnionVariant<PrintSupplyArgs, '__kind', 'Zero'>;
-export function printSupply(
-  kind: 'Limited',
-  data: GetDiscriminatedUnionVariantContent<
-    PrintSupplyArgs,
-    '__kind',
-    'Limited'
-  >['fields']
-): GetDiscriminatedUnionVariant<PrintSupplyArgs, '__kind', 'Limited'>;
-export function printSupply(
-  kind: 'Unlimited'
-): GetDiscriminatedUnionVariant<PrintSupplyArgs, '__kind', 'Unlimited'>;
-export function printSupply<K extends PrintSupplyArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Limited",
+  data: GetDiscriminatedUnionVariantContent<PrintSupplyArgs, "__kind", "Limited">["fields"],
+): GetDiscriminatedUnionVariant<PrintSupplyArgs, "__kind", "Limited">;
+export function printSupply(kind: "Unlimited"): GetDiscriminatedUnionVariant<PrintSupplyArgs, "__kind", "Unlimited">;
+export function printSupply<K extends PrintSupplyArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isPrintSupply<K extends PrintSupply['__kind']>(
+export function isPrintSupply<K extends PrintSupply["__kind"]>(
   kind: K,
-  value: PrintSupply
+  value: PrintSupply,
 ): value is PrintSupply & { __kind: K } {
   return value.__kind === kind;
 }

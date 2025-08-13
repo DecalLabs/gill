@@ -27,7 +27,7 @@ import {
   type Encoder,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
+} from "@solana/kit";
 import {
   getCollectionDecoder,
   getCollectionEncoder,
@@ -41,7 +41,7 @@ import {
   type CreatorArgs,
   type Uses,
   type UsesArgs,
-} from '.';
+} from ".";
 
 export type DataV2 = {
   name: string;
@@ -65,25 +65,25 @@ export type DataV2Args = {
 
 export function getDataV2Encoder(): Encoder<DataV2Args> {
   return getStructEncoder([
-    ['name', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['symbol', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['uri', addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
-    ['sellerFeeBasisPoints', getU16Encoder()],
-    ['creators', getOptionEncoder(getArrayEncoder(getCreatorEncoder()))],
-    ['collection', getOptionEncoder(getCollectionEncoder())],
-    ['uses', getOptionEncoder(getUsesEncoder())],
+    ["name", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["symbol", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["uri", addEncoderSizePrefix(getUtf8Encoder(), getU32Encoder())],
+    ["sellerFeeBasisPoints", getU16Encoder()],
+    ["creators", getOptionEncoder(getArrayEncoder(getCreatorEncoder()))],
+    ["collection", getOptionEncoder(getCollectionEncoder())],
+    ["uses", getOptionEncoder(getUsesEncoder())],
   ]);
 }
 
 export function getDataV2Decoder(): Decoder<DataV2> {
   return getStructDecoder([
-    ['name', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['symbol', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['uri', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
-    ['sellerFeeBasisPoints', getU16Decoder()],
-    ['creators', getOptionDecoder(getArrayDecoder(getCreatorDecoder()))],
-    ['collection', getOptionDecoder(getCollectionDecoder())],
-    ['uses', getOptionDecoder(getUsesDecoder())],
+    ["name", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["symbol", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["uri", addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+    ["sellerFeeBasisPoints", getU16Decoder()],
+    ["creators", getOptionDecoder(getArrayDecoder(getCreatorDecoder()))],
+    ["collection", getOptionDecoder(getCollectionDecoder())],
+    ["uses", getOptionDecoder(getUsesDecoder())],
   ]);
 }
 

@@ -1,5 +1,5 @@
 import { getCreateAccountInstruction } from "@solana-program/system";
-import type { Address, IInstruction, KeyPairSigner } from "@solana/kit";
+import type { Address, Instruction, KeyPairSigner } from "@solana/kit";
 import { generateKeyPairSigner } from "@solana/kit";
 import { getMinimumBalanceForRentExemption } from "../core";
 import { getCreateTokenInstructions, GetCreateTokenInstructionsArgs, TOKEN_PROGRAM_ADDRESS } from "../programs/token";
@@ -50,12 +50,12 @@ describe("getCreateTokenInstructions", () => {
   let mockMintAuthority: KeyPairSigner;
   let mockFreezeAuthority: KeyPairSigner;
 
-  let mockCreateAccountInstruction: IInstruction;
-  let mockInitializeMintInstruction: IInstruction;
-  let mockCreateMetadataInstruction: IInstruction;
+  let mockCreateAccountInstruction: Instruction;
+  let mockInitializeMintInstruction: Instruction;
+  let mockCreateMetadataInstruction: Instruction;
 
-  let mockInitializeMetadataPointerInstruction: IInstruction;
-  let mockInitializeTokenMetadataInstruction: IInstruction;
+  let mockInitializeMetadataPointerInstruction: Instruction;
+  let mockInitializeTokenMetadataInstruction: Instruction;
 
   const metadata: GetCreateTokenInstructionsArgs["metadata"] = {
     name: "Test Token",

@@ -24,65 +24,45 @@ import {
   type Encoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
-} from '@solana/kit';
+} from "@solana/kit";
 
-export type EscrowAuthority =
-  | { __kind: 'TokenOwner' }
-  | { __kind: 'Creator'; fields: readonly [Address] };
+export type EscrowAuthority = { __kind: "TokenOwner" } | { __kind: "Creator"; fields: readonly [Address] };
 
 export type EscrowAuthorityArgs = EscrowAuthority;
 
 export function getEscrowAuthorityEncoder(): Encoder<EscrowAuthorityArgs> {
   return getDiscriminatedUnionEncoder([
-    ['TokenOwner', getUnitEncoder()],
-    [
-      'Creator',
-      getStructEncoder([['fields', getTupleEncoder([getAddressEncoder()])]]),
-    ],
+    ["TokenOwner", getUnitEncoder()],
+    ["Creator", getStructEncoder([["fields", getTupleEncoder([getAddressEncoder()])]])],
   ]);
 }
 
 export function getEscrowAuthorityDecoder(): Decoder<EscrowAuthority> {
   return getDiscriminatedUnionDecoder([
-    ['TokenOwner', getUnitDecoder()],
-    [
-      'Creator',
-      getStructDecoder([['fields', getTupleDecoder([getAddressDecoder()])]]),
-    ],
+    ["TokenOwner", getUnitDecoder()],
+    ["Creator", getStructDecoder([["fields", getTupleDecoder([getAddressDecoder()])]])],
   ]);
 }
 
-export function getEscrowAuthorityCodec(): Codec<
-  EscrowAuthorityArgs,
-  EscrowAuthority
-> {
+export function getEscrowAuthorityCodec(): Codec<EscrowAuthorityArgs, EscrowAuthority> {
   return combineCodec(getEscrowAuthorityEncoder(), getEscrowAuthorityDecoder());
 }
 
 // Data Enum Helpers.
 export function escrowAuthority(
-  kind: 'TokenOwner'
-): GetDiscriminatedUnionVariant<EscrowAuthorityArgs, '__kind', 'TokenOwner'>;
+  kind: "TokenOwner",
+): GetDiscriminatedUnionVariant<EscrowAuthorityArgs, "__kind", "TokenOwner">;
 export function escrowAuthority(
-  kind: 'Creator',
-  data: GetDiscriminatedUnionVariantContent<
-    EscrowAuthorityArgs,
-    '__kind',
-    'Creator'
-  >['fields']
-): GetDiscriminatedUnionVariant<EscrowAuthorityArgs, '__kind', 'Creator'>;
-export function escrowAuthority<K extends EscrowAuthorityArgs['__kind'], Data>(
-  kind: K,
-  data?: Data
-) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "Creator",
+  data: GetDiscriminatedUnionVariantContent<EscrowAuthorityArgs, "__kind", "Creator">["fields"],
+): GetDiscriminatedUnionVariant<EscrowAuthorityArgs, "__kind", "Creator">;
+export function escrowAuthority<K extends EscrowAuthorityArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isEscrowAuthority<K extends EscrowAuthority['__kind']>(
+export function isEscrowAuthority<K extends EscrowAuthority["__kind"]>(
   kind: K,
-  value: EscrowAuthority
+  value: EscrowAuthority,
 ): value is EscrowAuthority & { __kind: K } {
   return value.__kind === kind;
 }

@@ -7,10 +7,10 @@
  */
 
 import { isProgramDerivedAddress, type Address, type ProgramDerivedAddress } from "@solana/kit";
-import { AccountRole, type IAccountMeta, upgradeRoleToSigner } from "@solana/kit";
+import { AccountRole, type AccountMeta, upgradeRoleToSigner } from "@solana/kit";
 import {
   isTransactionSigner as web3JsIsTransactionSigner,
-  type IAccountSignerMeta,
+  type AccountSignerMeta,
   type TransactionSigner,
 } from "@solana/kit";
 
@@ -90,7 +90,7 @@ export type ResolvedAccount<
  * Defines an instruction that stores additional bytes on-chain.
  * @internal
  */
-export type IInstructionWithByteDelta = {
+export type InstructionWithByteDelta = {
   byteDelta: number;
 };
 
@@ -99,7 +99,7 @@ export type IInstructionWithByteDelta = {
  * @internal
  */
 export function getAccountMetaFactory(programAddress: Address, optionalAccountStrategy: "omitted" | "programId") {
-  return (account: ResolvedAccount): IAccountMeta | IAccountSignerMeta | undefined => {
+  return (account: ResolvedAccount): AccountMeta | AccountSignerMeta | undefined => {
     if (!account.value) {
       if (optionalAccountStrategy === "omitted") return;
       return Object.freeze({

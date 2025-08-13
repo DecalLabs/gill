@@ -24,64 +24,39 @@ import {
   type GetDiscriminatedUnionVariantContent,
   type Option,
   type OptionOrNullable,
-} from '@solana/kit';
+} from "@solana/kit";
 
-export type ProgrammableConfig = { __kind: 'V1'; ruleSet: Option<Address> };
+export type ProgrammableConfig = { __kind: "V1"; ruleSet: Option<Address> };
 
 export type ProgrammableConfigArgs = {
-  __kind: 'V1';
+  __kind: "V1";
   ruleSet: OptionOrNullable<Address>;
 };
 
 export function getProgrammableConfigEncoder(): Encoder<ProgrammableConfigArgs> {
-  return getDiscriminatedUnionEncoder([
-    [
-      'V1',
-      getStructEncoder([['ruleSet', getOptionEncoder(getAddressEncoder())]]),
-    ],
-  ]);
+  return getDiscriminatedUnionEncoder([["V1", getStructEncoder([["ruleSet", getOptionEncoder(getAddressEncoder())]])]]);
 }
 
 export function getProgrammableConfigDecoder(): Decoder<ProgrammableConfig> {
-  return getDiscriminatedUnionDecoder([
-    [
-      'V1',
-      getStructDecoder([['ruleSet', getOptionDecoder(getAddressDecoder())]]),
-    ],
-  ]);
+  return getDiscriminatedUnionDecoder([["V1", getStructDecoder([["ruleSet", getOptionDecoder(getAddressDecoder())]])]]);
 }
 
-export function getProgrammableConfigCodec(): Codec<
-  ProgrammableConfigArgs,
-  ProgrammableConfig
-> {
-  return combineCodec(
-    getProgrammableConfigEncoder(),
-    getProgrammableConfigDecoder()
-  );
+export function getProgrammableConfigCodec(): Codec<ProgrammableConfigArgs, ProgrammableConfig> {
+  return combineCodec(getProgrammableConfigEncoder(), getProgrammableConfigDecoder());
 }
 
 // Data Enum Helpers.
 export function programmableConfig(
-  kind: 'V1',
-  data: GetDiscriminatedUnionVariantContent<
-    ProgrammableConfigArgs,
-    '__kind',
-    'V1'
-  >
-): GetDiscriminatedUnionVariant<ProgrammableConfigArgs, '__kind', 'V1'>;
-export function programmableConfig<
-  K extends ProgrammableConfigArgs['__kind'],
-  Data,
->(kind: K, data?: Data) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "V1",
+  data: GetDiscriminatedUnionVariantContent<ProgrammableConfigArgs, "__kind", "V1">,
+): GetDiscriminatedUnionVariant<ProgrammableConfigArgs, "__kind", "V1">;
+export function programmableConfig<K extends ProgrammableConfigArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isProgrammableConfig<K extends ProgrammableConfig['__kind']>(
+export function isProgrammableConfig<K extends ProgrammableConfig["__kind"]>(
   kind: K,
-  value: ProgrammableConfig
+  value: ProgrammableConfig,
 ): value is ProgrammableConfig & { __kind: K } {
   return value.__kind === kind;
 }

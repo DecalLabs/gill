@@ -31,7 +31,7 @@ import {
   type AuthorizationDataArgs,
 } from ".";
 
-export type MetadataMintArgs = {
+export type MintArgs = {
   __kind: "V1";
   amount: bigint;
   authorizationData: Option<AuthorizationData>;
@@ -55,7 +55,7 @@ export function getMintArgsEncoder(): Encoder<MintArgsArgs> {
   ]);
 }
 
-export function getMintArgsDecoder(): Decoder<MetadataMintArgs> {
+export function getMintArgsDecoder(): Decoder<MintArgs> {
   return getDiscriminatedUnionDecoder([
     [
       "V1",
@@ -67,7 +67,7 @@ export function getMintArgsDecoder(): Decoder<MetadataMintArgs> {
   ]);
 }
 
-export function getMintArgsCodec(): Codec<MintArgsArgs, MetadataMintArgs> {
+export function getMintArgsCodec(): Codec<MintArgsArgs, MintArgs> {
   return combineCodec(getMintArgsEncoder(), getMintArgsDecoder());
 }
 
@@ -80,9 +80,6 @@ export function mintArgs<K extends MintArgsArgs["__kind"], Data>(kind: K, data?:
   return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isMintArgs<K extends MetadataMintArgs["__kind"]>(
-  kind: K,
-  value: MetadataMintArgs,
-): value is MetadataMintArgs & { __kind: K } {
+export function isMintArgs<K extends MintArgs["__kind"]>(kind: K, value: MintArgs): value is MintArgs & { __kind: K } {
   return value.__kind === kind;
 }

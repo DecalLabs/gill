@@ -18,81 +18,54 @@ import {
   getStructEncoder,
   getU64Decoder,
   getU64Encoder,
-  type Codec,
-  type Decoder,
-  type Encoder,
+  type FixedSizeCodec,
+  type FixedSizeDecoder,
+  type FixedSizeEncoder,
   type GetDiscriminatedUnionVariant,
   type GetDiscriminatedUnionVariantContent,
   type ReadonlyUint8Array,
-} from '@solana/kit';
+} from "@solana/kit";
 
-export type CollectionDetails =
-  | { __kind: 'V1'; size: bigint }
-  | { __kind: 'V2'; padding: ReadonlyUint8Array };
+export type CollectionDetails = { __kind: "V1"; size: bigint } | { __kind: "V2"; padding: ReadonlyUint8Array };
 
 export type CollectionDetailsArgs =
-  | { __kind: 'V1'; size: number | bigint }
-  | { __kind: 'V2'; padding: ReadonlyUint8Array };
+  | { __kind: "V1"; size: number | bigint }
+  | { __kind: "V2"; padding: ReadonlyUint8Array };
 
-export function getCollectionDetailsEncoder(): Encoder<CollectionDetailsArgs> {
+export function getCollectionDetailsEncoder(): FixedSizeEncoder<CollectionDetailsArgs> {
   return getDiscriminatedUnionEncoder([
-    ['V1', getStructEncoder([['size', getU64Encoder()]])],
-    [
-      'V2',
-      getStructEncoder([['padding', fixEncoderSize(getBytesEncoder(), 8)]]),
-    ],
-  ]);
+    ["V1", getStructEncoder([["size", getU64Encoder()]])],
+    ["V2", getStructEncoder([["padding", fixEncoderSize(getBytesEncoder(), 8)]])],
+  ]) as FixedSizeEncoder<CollectionDetailsArgs>;
 }
 
-export function getCollectionDetailsDecoder(): Decoder<CollectionDetails> {
+export function getCollectionDetailsDecoder(): FixedSizeDecoder<CollectionDetails> {
   return getDiscriminatedUnionDecoder([
-    ['V1', getStructDecoder([['size', getU64Decoder()]])],
-    [
-      'V2',
-      getStructDecoder([['padding', fixDecoderSize(getBytesDecoder(), 8)]]),
-    ],
-  ]);
+    ["V1", getStructDecoder([["size", getU64Decoder()]])],
+    ["V2", getStructDecoder([["padding", fixDecoderSize(getBytesDecoder(), 8)]])],
+  ]) as FixedSizeDecoder<CollectionDetails>;
 }
 
-export function getCollectionDetailsCodec(): Codec<
-  CollectionDetailsArgs,
-  CollectionDetails
-> {
-  return combineCodec(
-    getCollectionDetailsEncoder(),
-    getCollectionDetailsDecoder()
-  );
+export function getCollectionDetailsCodec(): FixedSizeCodec<CollectionDetailsArgs, CollectionDetails> {
+  return combineCodec(getCollectionDetailsEncoder(), getCollectionDetailsDecoder());
 }
 
 // Data Enum Helpers.
 export function collectionDetails(
-  kind: 'V1',
-  data: GetDiscriminatedUnionVariantContent<
-    CollectionDetailsArgs,
-    '__kind',
-    'V1'
-  >
-): GetDiscriminatedUnionVariant<CollectionDetailsArgs, '__kind', 'V1'>;
+  kind: "V1",
+  data: GetDiscriminatedUnionVariantContent<CollectionDetailsArgs, "__kind", "V1">,
+): GetDiscriminatedUnionVariant<CollectionDetailsArgs, "__kind", "V1">;
 export function collectionDetails(
-  kind: 'V2',
-  data: GetDiscriminatedUnionVariantContent<
-    CollectionDetailsArgs,
-    '__kind',
-    'V2'
-  >
-): GetDiscriminatedUnionVariant<CollectionDetailsArgs, '__kind', 'V2'>;
-export function collectionDetails<
-  K extends CollectionDetailsArgs['__kind'],
-  Data,
->(kind: K, data?: Data) {
-  return Array.isArray(data)
-    ? { __kind: kind, fields: data }
-    : { __kind: kind, ...(data ?? {}) };
+  kind: "V2",
+  data: GetDiscriminatedUnionVariantContent<CollectionDetailsArgs, "__kind", "V2">,
+): GetDiscriminatedUnionVariant<CollectionDetailsArgs, "__kind", "V2">;
+export function collectionDetails<K extends CollectionDetailsArgs["__kind"], Data>(kind: K, data?: Data) {
+  return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isCollectionDetails<K extends CollectionDetails['__kind']>(
+export function isCollectionDetails<K extends CollectionDetails["__kind"]>(
   kind: K,
-  value: CollectionDetails
+  value: CollectionDetails,
 ): value is CollectionDetails & { __kind: K } {
   return value.__kind === kind;
 }

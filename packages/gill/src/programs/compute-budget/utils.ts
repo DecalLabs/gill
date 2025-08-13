@@ -1,13 +1,13 @@
 import { COMPUTE_BUDGET_PROGRAM_ADDRESS, ComputeBudgetInstruction } from "@solana-program/compute-budget";
-import type { IInstruction, IInstructionWithData, TransactionMessage } from "@solana/kit";
+import type { Instruction, InstructionWithData, TransactionMessage } from "@solana/kit";
 import { isInstructionForProgram, isInstructionWithData } from "@solana/kit";
 
 /**
  * Check if a given instruction is a `SetComputeUnitLimit` instruction
  */
 export function isSetComputeLimitInstruction(
-  instruction: IInstruction,
-): instruction is IInstruction<typeof COMPUTE_BUDGET_PROGRAM_ADDRESS> & IInstructionWithData<Uint8Array> {
+  instruction: Instruction,
+): instruction is Instruction<typeof COMPUTE_BUDGET_PROGRAM_ADDRESS> & InstructionWithData<Uint8Array> {
   return (
     isInstructionForProgram(instruction, COMPUTE_BUDGET_PROGRAM_ADDRESS) &&
     isInstructionWithData(instruction) &&
@@ -26,8 +26,8 @@ export function hasSetComputeLimitInstruction(tx: TransactionMessage): boolean {
  * Check if a given instruction is a `SetComputeUnitPrice` instruction
  */
 export function isSetComputeUnitPriceInstruction(
-  instruction: IInstruction,
-): instruction is IInstruction<typeof COMPUTE_BUDGET_PROGRAM_ADDRESS> & IInstructionWithData<Uint8Array> {
+  instruction: Instruction,
+): instruction is Instruction<typeof COMPUTE_BUDGET_PROGRAM_ADDRESS> & InstructionWithData<Uint8Array> {
   return (
     isInstructionForProgram(instruction, COMPUTE_BUDGET_PROGRAM_ADDRESS) &&
     isInstructionWithData(instruction) &&
