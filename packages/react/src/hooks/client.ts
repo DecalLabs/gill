@@ -14,6 +14,9 @@ export function useSolanaClient(): SolanaClient {
     initialData: createSolanaClient({
       urlOrMoniker: "devnet",
     }),
+    queryFn: () => {
+      throw new Error("useSolanaClient should not be called outside of SolanaProvider");
+    },
   });
   return config;
 }
