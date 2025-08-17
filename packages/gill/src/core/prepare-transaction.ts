@@ -2,7 +2,7 @@ import { COMPUTE_BUDGET_PROGRAM_ADDRESS, getSetComputeUnitLimitInstruction } fro
 import type {
   CompilableTransactionMessage,
   GetLatestBlockhashApi,
-  ITransactionMessageWithFeePayer,
+  TransactionMessageWithFeePayer,
   Rpc,
   SimulateTransactionApi,
   TransactionMessage,
@@ -11,16 +11,15 @@ import type {
 import {
   appendTransactionMessageInstruction,
   assertIsTransactionMessageWithBlockhashLifetime,
-  getComputeUnitEstimateForTransactionMessageFactory,
   setTransactionMessageLifetimeUsingBlockhash,
 } from "@solana/kit";
-import { isSetComputeLimitInstruction } from "../programs/compute-budget";
+import { isSetComputeLimitInstruction, estimateComputeUnitLimitFactory } from "../programs/compute-budget";
 import { transactionToBase64WithSigners } from "./base64-to-transaction";
 import { debug, isDebugEnabled } from "./debug";
 
 type PrepareCompilableTransactionMessage =
   | CompilableTransactionMessage
-  | (ITransactionMessageWithFeePayer & TransactionMessage);
+  | (TransactionMessageWithFeePayer & TransactionMessage);
 
 export type PrepareTransactionConfig<TMessage extends PrepareCompilableTransactionMessage> = {
   /**
@@ -82,7 +81,7 @@ export async function prepareTransaction<TMessage extends PrepareCompilableTrans
 
   // set a compute unit limit instruction
   if (computeBudgetIndex.limit < 0 || config.computeUnitLimitReset) {
-    const units = await getComputeUnitEstimateForTransactionMessageFactory({ rpc: config.rpc })(config.transaction);
+    const units = await estimateComputeUnitLimitFactory({ rpc: config.rpc })(config.transaction);
     debug(`Obtained compute units from simulation: ${units}`, "debug");
     const ix = getSetComputeUnitLimitInstruction({
       units: units * config.computeUnitLimitMultiplier,
