@@ -18,6 +18,8 @@
     "build": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} build",
     "codama:generate": "./idls/build-codama-clients.sh",
     "compile:docs": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} compile:docs",
+    "dev": "turbo run compile:js compile:typedefs --filter=gill --filter=gill-react",
+    "dev:react-app": "turbo run dev --filter=gill --filter=gill-react --filter=react-app",
     "test": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test",
     "test:treeshakability:native": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:treeshakability:native",
     "test:treeshakability:browser": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:treeshakability:browser",

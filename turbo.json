@@ -76,6 +76,11 @@
     },
     "test:treeshakability:node": {
       "dependsOn": ["compile:js"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "outputs": ["dist/**"]
     }
   },
   "ui": "stream"

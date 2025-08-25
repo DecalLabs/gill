@@ -18,6 +18,9 @@ yarn-error.log*
 # turbo
 .turbo
 
+# TanStack Router generated files
+routeTree.gen.ts
+
 # typedocs output
 .docs
 
